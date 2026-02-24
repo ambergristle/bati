@@ -2,7 +2,7 @@
   "name": "bati",
   "private": true,
   "type": "module",
-  "version": "0.0.582",
+  "version": "0.0.583",
   "description": "@batijs monorepo",
   "scripts": {
     "new-boilerplate": "tsx ./scripts/new-boilerplate.ts",
