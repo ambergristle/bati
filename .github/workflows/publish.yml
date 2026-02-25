@@ -39,12 +39,10 @@ jobs:
       # Setup .npmrc file to publish to npm
       - uses: actions/setup-node@v6
         with:
-          node-version: '20.x'
+          # Note: Trusted publishing requires npm CLI version 11.5.1 or later and Node version 22.14.0 or higher.
+          node-version: '24'
+          registry-url: 'https://registry.npmjs.org'
           cache: 'pnpm'
-
-      # Ensure npm 11.5.1 or later is installed (OIDC support)
-      - name: Update npm
-        run: npm install -g npm@latest
 
       - name: Install dependencies
         run: pnpm install
