@@ -1,6 +1,6 @@
 {
   "name": "@batijs/core",
-  "version": "0.0.588",
+  "version": "0.0.589",
   "description": "",
   "type": "module",
   "types": "./dist/index.d.ts",
