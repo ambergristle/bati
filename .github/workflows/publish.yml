@@ -38,4 +38,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
+      - name: Configure git before publish
+        run: |
+          git config --global user.name "Joël Charles"
+          git config --global user.email "joel.charles91@gmail.com"
+
       - run: pnpm run release:ci
