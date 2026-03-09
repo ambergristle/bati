@@ -1,7 +1,7 @@
 {
   "name": "@batijs/tests-utils",
   "private": true,
-  "version": "0.0.593",
+  "version": "0.0.594",
   "type": "module",
   "scripts": {
     "check-types": "tsc --noEmit",
