@@ -1,6 +1,6 @@
 {
   "name": "@batijs/cli",
-  "version": "0.0.597",
+  "version": "0.0.598",
   "type": "module",
   "scripts": {
     "check-types": "tsc --noEmit",
