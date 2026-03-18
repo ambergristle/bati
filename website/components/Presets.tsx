@@ -43,7 +43,7 @@ export default function Presets() {
     <div class="w-full flex box-border gap-2">
       <Preset
         title="Frontend"
-        features={["UI Framework", "CSS", "Linter"]}
+        features={["UI Framework", "CSS", "Linter", "storybook"]}
         description="Frontend app with a UI Framework and Tailwind CSS"
       />
       <Preset
