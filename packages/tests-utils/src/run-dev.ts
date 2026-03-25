@@ -5,6 +5,7 @@ import { waitForLocalhost } from "./wait-for-localhost.js";
 
 export async function runDevServer(context: GlobalContext) {
   const cmd = ["run", "dev", "--port", String(context.port)];
+  console.log(`[bati-test] Starting dev server: ${npmCli} ${cmd.join(" ")}`);
   context.server = exec(npmCli, cmd, {
     env: {
       PORT: String(context.port),
@@ -28,5 +29,6 @@ export async function runDevServer(context: GlobalContext) {
     throw new Error("Server stopped before tests could run");
   }
 
+  console.log(`[bati-test] Dev server ready at http://localhost:${context.port} (PID: ${context.server.pid ?? "unknown"})`);
   return { server: context.server, port: context.port };
 }

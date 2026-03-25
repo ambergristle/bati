@@ -86,14 +86,14 @@ jobs:
         # does not interpret backslashes in Windows paths as escape sequences.
         run: bun "$GITHUB_WORKSPACE/bati-cli/index.js" --knip ${{ inputs.flags }} "$RUNNER_TEMP/${{ inputs.destination }}"
 
-      - name: Copy tests-utils
+      - name: Link tests-utils
         shell: bash
-        run: cp "$GITHUB_WORKSPACE/bati-tests-utils/"* .
+        run: cp -s "$GITHUB_WORKSPACE/bati-tests-utils/"* .
         working-directory: ${{ runner.temp }}/${{ inputs.destination }}
 
-      - name: Copy tests files
+      - name: Link tests files
         shell: bash
-        run: cp "$GITHUB_WORKSPACE/bati-tests-files/"* .
+        run: cp -s "$GITHUB_WORKSPACE/bati-tests-files/"* .
         working-directory: ${{ runner.temp }}/${{ inputs.destination }}
 
       - name: Prepare Bati tests

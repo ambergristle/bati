@@ -113,24 +113,32 @@ export async function createNxConfig(context: GlobalContext) {
             cache: false,
           },
           build: {
-            cache: false,
+            dependsOn: ["generate-types"],
+            // build results are cached so that dependsOn chains (test → build,
+            // lint → build, etc.) reuse the cached output instead of rebuilding
           },
           test: {
+            dependsOn: ["build"],
             cache: false,
           },
           "lint:eslint": {
+            dependsOn: ["build"],
             cache: false,
           },
           "lint:biome": {
+            dependsOn: ["build"],
             cache: false,
           },
           "lint:oxlint": {
+            dependsOn: ["build"],
             cache: false,
           },
           typecheck: {
+            dependsOn: ["build"],
             cache: false,
           },
           knip: {
+            dependsOn: ["build", "test"],
             cache: false,
           },
         },
