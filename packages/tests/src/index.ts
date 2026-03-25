@@ -10,8 +10,10 @@ import mri from "mri";
 import pLimit from "p-limit";
 
 import { Document, parseDocument, YAMLMap, YAMLSeq } from "yaml";
+import rootPackageJson from "../../../package.json" with { type: "json" };
 import {
   createBatiConfig,
+  createNxConfig,
   extractPnpmOnlyBuiltDependencies,
   updatePackageJson,
   updateTsconfig,
@@ -62,6 +64,9 @@ async function createWorkspacePackageJson(context: GlobalContext) {
     JSON.stringify({
       name: "bati-tests",
       private: true,
+      devDependencies: {
+        nx: rootPackageJson.devDependencies.nx,
+      },
       ...(npmCli === "bun" ? { workspaces: ["packages/*"] } : {}),
       packageManager: `${npmCli}@${version}`,
     }),
@@ -126,21 +131,24 @@ async function pnpmRebuild(projectDirs: string[]) {
   }
 }
 
-async function execSteps(context: GlobalContext, args: mri.Argv<CliOptions>) {
+async function execNx(context: GlobalContext, args: mri.Argv<CliOptions>) {
   const steps = args.steps
     ? args.steps.split(",")
     : ["generate-types", "build", "test", "lint:eslint", "lint:biome", "lint:oxlint", "typecheck", "knip"];
 
   for (const step of steps) {
-    const execArgs =
-      npmCli === "bun"
-        ? ["run", "--filter=*", step]
-        : ["run", "-r", "--workspace-concurrency", "3", "--if-present", step];
-
-    await exec(npmCli, execArgs, {
-      timeout: 35 * 60 * 1000, // 35min
-      cwd: context.tmpdir,
-    });
+    await exec(
+      npmCli,
+      [npmCli === "bun" ? "x" : "exec", "nx", "run-many", `--target=${step}`],
+      {
+        timeout: 35 * 60 * 1000, // 35min
+        cwd: context.tmpdir,
+        env: {
+          NX_DAEMON: "false",
+          NX_TUI: "false",
+        },
+      },
+    );
   }
 }
 
@@ -313,6 +321,10 @@ async function main(context: GlobalContext, args: mri.Argv<CliOptions>) {
   // create .gitignore file
   await createGitIgnore(context);
 
+  // create nx config for workspace-level task orchestration
+  // Note: nx.json is created AFTER execLocalBati so storybook init cannot detect it
+  await createNxConfig(context);
+
   // pnpm/bun link in @batijs/tests-utils so that it can be used inside /tmt/bati/*
   await linkTestUtils();
 
@@ -325,7 +337,7 @@ async function main(context: GlobalContext, args: mri.Argv<CliOptions>) {
   }
 
   // exec test steps across all generated packages
-  await execSteps(context, args);
+  await execNx(context, args);
 }
 
 const argv = process.argv.slice(2);

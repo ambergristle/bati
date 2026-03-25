@@ -2,6 +2,7 @@ import { readFile, writeFile } from "node:fs/promises";
 import { basename, join } from "node:path";
 import { isNode, parseDocument } from "yaml";
 import packageJson from "../package.json" with { type: "json" };
+import type { GlobalContext } from "./types.js";
 
 export async function updatePackageJson(
   projectDir: string,
@@ -98,4 +99,51 @@ export async function extractPnpmOnlyBuiltDependencies(projectDir: string, onlyB
   } catch {
     // noop
   }
+}
+
+export async function createNxConfig(context: GlobalContext) {
+  await writeFile(
+    join(context.tmpdir, "nx.json"),
+    JSON.stringify(
+      {
+        $schema: "https://nx.dev/reference/nx-json",
+        targetDefaults: {
+          "generate-types": {
+            cache: false,
+          },
+          build: {
+            dependsOn: ["generate-types"],
+            cache: false,
+          },
+          test: {
+            dependsOn: ["build"],
+            cache: false,
+          },
+          "lint:eslint": {
+            dependsOn: ["build"],
+            cache: false,
+          },
+          "lint:biome": {
+            dependsOn: ["build"],
+            cache: false,
+          },
+          "lint:oxlint": {
+            dependsOn: ["build"],
+            cache: false,
+          },
+          typecheck: {
+            dependsOn: ["build"],
+            cache: false,
+          },
+          knip: {
+            dependsOn: ["build", "test"],
+            cache: false,
+          },
+        },
+      },
+      undefined,
+      2,
+    ) + "\n",
+    "utf-8",
+  );
 }

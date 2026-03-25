@@ -82,22 +82,24 @@ jobs:
         shell: bash
         # Run the CLI with the destination outside the checkout to prevent tools
         # like Storybook from walking up and detecting nx.json in the repo root.
-        run: bun ${{ github.workspace }}/bati-cli/index.js --knip ${{ inputs.flags }} ${{ runner.temp }}/${{ inputs.destination }}
+        # Use $GITHUB_WORKSPACE/$RUNNER_TEMP env vars (not ${{ }} expressions) so bash
+        # does not interpret backslashes in Windows paths as escape sequences.
+        run: bun "$GITHUB_WORKSPACE/bati-cli/index.js" --knip ${{ inputs.flags }} "$RUNNER_TEMP/${{ inputs.destination }}"
 
       - name: Link tests-utils
         shell: bash
-        run: cp -s ${{ github.workspace }}/bati-tests-utils/* .
+        run: cp -s "$GITHUB_WORKSPACE/bati-tests-utils/"* .
         working-directory: ${{ runner.temp }}/${{ inputs.destination }}
 
       - name: Link tests files
         shell: bash
-        run: cp -s ${{ github.workspace }}/bati-tests-files/* .
+        run: cp -s "$GITHUB_WORKSPACE/bati-tests-files/"* .
         working-directory: ${{ runner.temp }}/${{ inputs.destination }}
 
       - name: Prepare Bati tests
         shell: bash
         run:
-          bun ${{ github.workspace }}/bati-tests/prepare.js --test-files='${{ inputs.test-files }}' ${{
+          bun "$GITHUB_WORKSPACE/bati-tests/prepare.js" --test-files='${{ inputs.test-files }}' ${{
           inputs.flags }}
         working-directory: ${{ runner.temp }}/${{ inputs.destination }}
 
