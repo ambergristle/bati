@@ -111,4 +111,3 @@ const main = defineCommand({
 });
 
 runMain(main);
-

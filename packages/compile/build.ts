@@ -103,6 +103,7 @@ export async function build() {
         },
         deps: {
           skipNodeModulesBundle: true,
+          neverBundle: [/@batijs\/.*/],
         },
         onSuccess: async () => {
           const distDir = path.join(process.cwd(), "dist", "types");

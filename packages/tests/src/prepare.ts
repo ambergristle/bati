@@ -1,11 +1,6 @@
 import { readdirSync } from "node:fs";
 import mri from "mri";
-import {
-  createBatiConfig,
-  updatePackageJson,
-  updateTsconfig,
-  updateVitestConfig,
-} from "./common.js";
+import { createBatiConfig, updatePackageJson, updateTsconfig, updateVitestConfig } from "./common.js";
 
 async function prepare(flags: string[], testFiles: string) {
   const projectDir = ".";
