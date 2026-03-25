@@ -1,0 +1,18 @@
+{
+  "$schema": "https://nx.dev/reference/nx-json",
+  "targetDefaults": {
+    "build": {
+      "cache": true,
+      "dependsOn": ["^build"],
+      "inputs": ["default", "^default"],
+      "outputs": ["{projectRoot}/dist/**"]
+    },
+    "test": {
+      "cache": true,
+      "dependsOn": ["build"]
+    },
+    "check-types": {
+      "cache": true
+    }
+  }
+}

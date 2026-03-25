@@ -33,5 +33,10 @@
         "./dist/types/vite.config.d.mts"
       ]
     }
+  },
+  "nx": {
+    "tags": [
+      "type:boilerplate"
+    ]
   }
 }

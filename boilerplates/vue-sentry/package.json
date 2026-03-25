@@ -36,5 +36,10 @@
         "./dist/types/sentry.browser.config.d.mts"
       ]
     }
+  },
+  "nx": {
+    "tags": [
+      "type:boilerplate"
+    ]
   }
 }

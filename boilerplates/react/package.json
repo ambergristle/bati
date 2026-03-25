@@ -138,5 +138,10 @@
         "./dist/types/pages/star-wars/index/+data.d.mts"
       ]
     }
+  },
+  "nx": {
+    "tags": [
+      "type:boilerplate"
+    ]
   }
 }

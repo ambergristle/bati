@@ -39,5 +39,10 @@
         "./dist/types/pages/todo/+data.d.mts"
       ]
     }
+  },
+  "nx": {
+    "tags": [
+      "type:boilerplate"
+    ]
   }
 }

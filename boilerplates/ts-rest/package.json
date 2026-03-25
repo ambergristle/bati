@@ -48,5 +48,10 @@
         "./dist/types/ts-rest/contract.d.mts"
       ]
     }
+  },
+  "nx": {
+    "tags": [
+      "type:boilerplate"
+    ]
   }
 }

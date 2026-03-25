@@ -41,5 +41,10 @@
         "./dist/types/eslint.config.d.mts"
       ]
     }
+  },
+  "nx": {
+    "tags": [
+      "type:boilerplate"
+    ]
   }
 }

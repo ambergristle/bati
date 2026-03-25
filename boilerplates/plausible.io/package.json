@@ -20,5 +20,10 @@
   },
   "files": [
     "dist/"
-  ]
+  ],
+  "nx": {
+    "tags": [
+      "type:boilerplate"
+    ]
+  }
 }

@@ -42,5 +42,10 @@
         "./dist/types/server/entry.d.mts"
       ]
     }
+  },
+  "nx": {
+    "tags": [
+      "type:boilerplate"
+    ]
   }
 }

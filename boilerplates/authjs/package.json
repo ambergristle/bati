@@ -34,5 +34,10 @@
         "./dist/types/server/authjs-handler.d.mts"
       ]
     }
+  },
+  "nx": {
+    "tags": [
+      "type:boilerplate"
+    ]
   }
 }

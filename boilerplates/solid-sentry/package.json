@@ -26,11 +26,11 @@
     "dist/"
   ],
   "exports": {
-    "./sentry.browser.config": {
-      "types": "./dist/types/sentry.browser.config.d.mts"
-    },
     "./pages/sentry/+Page": {
       "types": "./dist/types/pages/sentry/+Page.d.mts"
+    },
+    "./sentry.browser.config": {
+      "types": "./dist/types/sentry.browser.config.d.mts"
     }
   },
   "typesVersions": {
@@ -42,5 +42,10 @@
         "./dist/types/pages/sentry/+Page.d.mts"
       ]
     }
+  },
+  "nx": {
+    "tags": [
+      "type:boilerplate"
+    ]
   }
 }

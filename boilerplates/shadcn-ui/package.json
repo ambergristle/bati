@@ -40,5 +40,10 @@
         "./dist/types/lib/utils.d.mts"
       ]
     }
+  },
+  "nx": {
+    "tags": [
+      "type:boilerplate"
+    ]
   }
 }

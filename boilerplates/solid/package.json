@@ -33,14 +33,17 @@
     "./components/Link": {
       "types": "./dist/types/components/Link.d.mts"
     },
+    "./pages/_error/+Page": {
+      "types": "./dist/types/pages/_error/+Page.d.mts"
+    },
+    "./pages/+config": {
+      "types": "./dist/types/pages/+config.d.mts"
+    },
     "./pages/+Head": {
       "types": "./dist/types/pages/+Head.d.mts"
     },
     "./pages/+Layout": {
       "types": "./dist/types/pages/+Layout.d.mts"
-    },
-    "./pages/+config": {
-      "types": "./dist/types/pages/+config.d.mts"
     },
     "./pages/+onPageTransitionEnd": {
       "types": "./dist/types/pages/+onPageTransitionEnd.d.mts"
@@ -48,14 +51,23 @@
     "./pages/+onPageTransitionStart": {
       "types": "./dist/types/pages/+onPageTransitionStart.d.mts"
     },
-    "./pages/_error/+Page": {
-      "types": "./dist/types/pages/_error/+Page.d.mts"
-    },
     "./pages/index/+Page": {
       "types": "./dist/types/pages/index/+Page.d.mts"
     },
     "./pages/index/Counter": {
       "types": "./dist/types/pages/index/Counter.d.mts"
+    },
+    "./pages/star-wars/@id/+data": {
+      "types": "./dist/types/pages/star-wars/@id/+data.d.mts"
+    },
+    "./pages/star-wars/@id/+Page": {
+      "types": "./dist/types/pages/star-wars/@id/+Page.d.mts"
+    },
+    "./pages/star-wars/index/+data": {
+      "types": "./dist/types/pages/star-wars/index/+data.d.mts"
+    },
+    "./pages/star-wars/index/+Page": {
+      "types": "./dist/types/pages/star-wars/index/+Page.d.mts"
     },
     "./pages/star-wars/types": {
       "types": "./dist/types/pages/star-wars/types.d.mts"
@@ -65,18 +77,6 @@
     },
     "./pages/todo/TodoList": {
       "types": "./dist/types/pages/todo/TodoList.d.mts"
-    },
-    "./pages/star-wars/@id/+Page": {
-      "types": "./dist/types/pages/star-wars/@id/+Page.d.mts"
-    },
-    "./pages/star-wars/@id/+data": {
-      "types": "./dist/types/pages/star-wars/@id/+data.d.mts"
-    },
-    "./pages/star-wars/index/+Page": {
-      "types": "./dist/types/pages/star-wars/index/+Page.d.mts"
-    },
-    "./pages/star-wars/index/+data": {
-      "types": "./dist/types/pages/star-wars/index/+data.d.mts"
     }
   },
   "typesVersions": {
@@ -130,5 +130,10 @@
         "./dist/types/pages/star-wars/index/+data.d.mts"
       ]
     }
+  },
+  "nx": {
+    "tags": [
+      "type:boilerplate"
+    ]
   }
 }

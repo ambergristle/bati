@@ -63,5 +63,10 @@
         "./dist/types/database/kysely/queries/todos.d.mts"
       ]
     }
+  },
+  "nx": {
+    "tags": [
+      "type:boilerplate"
+    ]
   }
 }

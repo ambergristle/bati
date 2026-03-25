@@ -35,5 +35,10 @@
         "./dist/types/database/d1/helpers.d.mts"
       ]
     }
+  },
+  "nx": {
+    "tags": [
+      "type:boilerplate"
+    ]
   }
 }

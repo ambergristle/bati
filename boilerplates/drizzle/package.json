@@ -27,9 +27,6 @@
     "dist/"
   ],
   "exports": {
-    "./drizzle.config": {
-      "types": "./dist/types/drizzle.config.d.mts"
-    },
     "./database/drizzle/db": {
       "types": "./dist/types/database/drizzle/db.d.mts"
     },
@@ -38,6 +35,9 @@
     },
     "./database/drizzle/schema/todos": {
       "types": "./dist/types/database/drizzle/schema/todos.d.mts"
+    },
+    "./drizzle.config": {
+      "types": "./dist/types/drizzle.config.d.mts"
     }
   },
   "typesVersions": {
@@ -55,5 +55,10 @@
         "./dist/types/database/drizzle/schema/todos.d.mts"
       ]
     }
+  },
+  "nx": {
+    "tags": [
+      "type:boilerplate"
+    ]
   }
 }

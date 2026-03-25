@@ -44,14 +44,14 @@
     "./pages/+onPageTransitionStart": {
       "types": "./dist/types/pages/+onPageTransitionStart.d.mts"
     },
-    "./pages/star-wars/types": {
-      "types": "./dist/types/pages/star-wars/types.d.mts"
-    },
     "./pages/star-wars/@id/+data": {
       "types": "./dist/types/pages/star-wars/@id/+data.d.mts"
     },
     "./pages/star-wars/index/+data": {
       "types": "./dist/types/pages/star-wars/index/+data.d.mts"
+    },
+    "./pages/star-wars/types": {
+      "types": "./dist/types/pages/star-wars/types.d.mts"
     }
   },
   "typesVersions": {
@@ -78,5 +78,10 @@
         "./dist/types/pages/star-wars/index/+data.d.mts"
       ]
     }
+  },
+  "nx": {
+    "tags": [
+      "type:boilerplate"
+    ]
   }
 }

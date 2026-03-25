@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "check-types": "tsc --noEmit",
-    "prepublishOnly": "turbo run build",
+    "prepublishOnly": "nx run-many --target=build",
     "build": "tsdown"
   },
   "keywords": [],

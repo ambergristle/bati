@@ -54,5 +54,10 @@
         "./dist/types/database/sqlite/schema/todos.d.mts"
       ]
     }
+  },
+  "nx": {
+    "tags": [
+      "type:boilerplate"
+    ]
   }
 }

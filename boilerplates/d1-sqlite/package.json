@@ -34,5 +34,10 @@
         "./dist/types/database/d1/queries/todos.d.mts"
       ]
     }
+  },
+  "nx": {
+    "tags": [
+      "type:boilerplate"
+    ]
   }
 }
