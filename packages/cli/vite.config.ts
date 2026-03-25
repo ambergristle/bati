@@ -1,4 +1,22 @@
+import { readdirSync, readFileSync, statSync } from "node:fs";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
 import { defineConfig } from "vite-plus";
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const boilerplatesDir = join(__dirname, "..", "..", "boilerplates");
+
+const boilerplateDepends = readdirSync(boilerplatesDir)
+  .filter((entry) => statSync(join(boilerplatesDir, entry)).isDirectory())
+  .flatMap((entry) => {
+    try {
+      const pkg = JSON.parse(readFileSync(join(boilerplatesDir, entry, "package.json"), "utf-8"));
+      return pkg.name ? [`${pkg.name}#build`] : [];
+    } catch {
+      return [];
+    }
+  })
+  .sort();
 
 export default defineConfig({
   run: {
@@ -10,49 +28,7 @@ export default defineConfig({
           "@batijs/compile#build",
           "@batijs/features#build",
           "@batijs/build#build",
-          "@batijs/auth0#build",
-          "@batijs/authjs#build",
-          "@batijs/aws#build",
-          "@batijs/biome#build",
-          "@batijs/cloudflare#build",
-          "@batijs/compiled#build",
-          "@batijs/d1#build",
-          "@batijs/d1-kysely#build",
-          "@batijs/d1-sqlite#build",
-          "@batijs/drizzle#build",
-          "@batijs/eslint#build",
-          "@batijs/express#build",
-          "@batijs/fastify#build",
-          "@batijs/google-analytics#build",
-          "@batijs/h3#build",
-          "@batijs/hono#build",
-          "@batijs/kysely#build",
-          "@batijs/mantine#build",
-          "@batijs/oxlint#build",
-          "@batijs/photon#build",
-          "@batijs/plausible.io#build",
-          "@batijs/pnpm#build",
-          "@batijs/prettier#build",
-          "@batijs/prisma#build",
-          "@batijs/react#build",
-          "@batijs/react-sentry#build",
-          "@batijs/sentry#build",
-          "@batijs/shadcn-ui#build",
-          "@batijs/shared#build",
-          "@batijs/shared-db#build",
-          "@batijs/shared-server#build",
-          "@batijs/shared-todo#build",
-          "@batijs/solid#build",
-          "@batijs/solid-sentry#build",
-          "@batijs/sqlite#build",
-          "@batijs/storybook#build",
-          "@batijs/tailwindcss#build",
-          "@batijs/telefunc#build",
-          "@batijs/trpc#build",
-          "@batijs/ts-rest#build",
-          "@batijs/vercel#build",
-          "@batijs/vue#build",
-          "@batijs/vue-sentry#build",
+          ...boilerplateDepends,
         ],
       },
     },

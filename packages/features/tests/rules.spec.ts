@@ -13,9 +13,7 @@ test("requires - simple", () => {
   expect(simpleRequires(prepare(["Auth", "Server"]))).toBeFalsy();
 
   expect(simpleRequires(prepare(["authjs"]))).toEqual(RulesMessage.ERROR_AUTH_R_SERVER);
-  expect(simpleRequires(prepare(["Auth", "authjs", "telefunc"]))).toEqual(
-    RulesMessage.ERROR_AUTH_R_SERVER,
-  );
+  expect(simpleRequires(prepare(["Auth", "authjs", "telefunc"]))).toEqual(RulesMessage.ERROR_AUTH_R_SERVER);
 });
 
 test("requires - extended", () => {
@@ -32,9 +30,7 @@ test("requires - extended", () => {
 
   expect(extendedRequires(prepare(["authjs"]))).toEqual(RulesMessage.ERROR_AUTH_R_SERVER);
   expect(extendedRequires(prepare(["authjs", "hono"]))).toEqual(RulesMessage.ERROR_AUTH_R_SERVER);
-  expect(extendedRequires(prepare(["authjs", "hono", "UI Framework"]))).toEqual(
-    RulesMessage.ERROR_AUTH_R_SERVER,
-  );
+  expect(extendedRequires(prepare(["authjs", "hono", "UI Framework"]))).toEqual(RulesMessage.ERROR_AUTH_R_SERVER);
 });
 
 test("exclusive", () => {
@@ -46,10 +42,6 @@ test("exclusive", () => {
   expect(simpleExclusive(prepare(["authjs", "Server"]))).toBeFalsy();
   expect(simpleExclusive(prepare(["Server", "Analytics"]))).toBeFalsy();
 
-  expect(simpleExclusive(prepare(["Server", "plausible.io"]))).toEqual(
-    RulesMessage.ERROR_AUTH_R_SERVER,
-  );
-  expect(simpleExclusive(prepare(["hono", "plausible.io"]))).toEqual(
-    RulesMessage.ERROR_AUTH_R_SERVER,
-  );
+  expect(simpleExclusive(prepare(["Server", "plausible.io"]))).toEqual(RulesMessage.ERROR_AUTH_R_SERVER);
+  expect(simpleExclusive(prepare(["hono", "plausible.io"]))).toEqual(RulesMessage.ERROR_AUTH_R_SERVER);
 });
