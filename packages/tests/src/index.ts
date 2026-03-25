@@ -1,6 +1,6 @@
 import { copyFile, readFile, rm, writeFile } from "node:fs/promises";
 import http from "node:http";
-import { cpus, tmpdir } from "node:os";
+import { cpus } from "node:os";
 import { basename, dirname, join, resolve } from "node:path";
 import * as process from "node:process";
 import { fileURLToPath } from "node:url";
@@ -10,10 +10,8 @@ import mri from "mri";
 import pLimit from "p-limit";
 
 import { Document, parseDocument, YAMLMap, YAMLSeq } from "yaml";
-import packageJson from "../package.json" with { type: "json" };
 import {
   createBatiConfig,
-  createTurboConfig,
   extractPnpmOnlyBuiltDependencies,
   updatePackageJson,
   updateTsconfig,
@@ -64,9 +62,6 @@ async function createWorkspacePackageJson(context: GlobalContext) {
     JSON.stringify({
       name: "bati-tests",
       private: true,
-      devDependencies: {
-        turbo: packageJson.devDependencies.turbo,
-      },
       ...(npmCli === "bun" ? { workspaces: ["packages/*"] } : {}),
       packageManager: `${npmCli}@${version}`,
     }),
@@ -97,7 +92,6 @@ function linkTestUtils() {
 
 async function packageManagerInstall(context: GlobalContext) {
   {
-    // we use --prefer-offline in order to hit turborepo cache more often (as there is no bun/pnpm lock file)
     const child = exec(npmCli, ["install", "--prefer-offline", ...(npmCli === "bun" ? ["--linker", "isolated"] : [])], {
       // really slow on Windows CI
       timeout: 5 * 60 * 1000,
@@ -132,53 +126,22 @@ async function pnpmRebuild(projectDirs: string[]) {
   }
 }
 
-async function execTurborepo(context: GlobalContext, args: mri.Argv<CliOptions>) {
-  const steps = args.steps ? args.steps.split(",") : undefined;
-  const args_1 = [npmCli === "bun" ? "x" : "exec", "turbo", "run"];
-  const args_2 = ["--no-update-notifier", "--framework-inference", "false", "--env-mode", "loose"];
+async function execSteps(context: GlobalContext, args: mri.Argv<CliOptions>) {
+  const steps = args.steps
+    ? args.steps.split(",")
+    : ["generate-types", "build", "test", "lint:eslint", "lint:biome", "lint:oxlint", "typecheck", "knip"];
 
-  const cacheDir = process.env.CI ? false : join(tmpdir(), "bati-cache");
-  if (cacheDir) {
-    console.log("[turborepo] Using cache dir", cacheDir);
-    args_2.push(`--cache-dir`);
-    args_2.push(cacheDir);
-  }
+  for (const step of steps) {
+    const execArgs =
+      npmCli === "bun"
+        ? ["run", "--filter=*", step]
+        : ["run", "-r", "--workspace-concurrency", "3", "--if-present", step];
 
-  // GitHub CI seems to fail more often with default concurrency
-  // Also local tests with @cloudflare/vite-plugin can easily crash because of memory overflow without it
-  args_2.push("--concurrency");
-  args_2.push("3");
-
-  if (args.force) {
-    args_2.push("--force");
-  }
-
-  if (args.summarize) {
-    // Debug cache hits
-    args_2.push("--summarize");
-  }
-
-  await exec(
-    npmCli,
-    [
-      ...args_1,
-      ...(steps ?? [
-        "generate-types",
-        "build",
-        "test",
-        "lint:eslint",
-        "lint:biome",
-        "lint:oxlint",
-        "typecheck",
-        "knip",
-      ]),
-      ...args_2,
-    ],
-    {
+    await exec(npmCli, execArgs, {
       timeout: 35 * 60 * 1000, // 35min
       cwd: context.tmpdir,
-    },
-  );
+    });
+  }
 }
 
 function isVerdaccioRunning() {
@@ -347,11 +310,8 @@ async function main(context: GlobalContext, args: mri.Argv<CliOptions>) {
     await createPnpmWorkspaceYaml(context, onlyBuiltDependencies);
   }
 
-  // create .gitignore file, used by turborepo cache hash computation
+  // create .gitignore file
   await createGitIgnore(context);
-
-  // create turbo config
-  await createTurboConfig(context);
 
   // pnpm/bun link in @batijs/tests-utils so that it can be used inside /tmt/bati/*
   await linkTestUtils();
@@ -364,8 +324,8 @@ async function main(context: GlobalContext, args: mri.Argv<CliOptions>) {
     await pnpmRebuild(pnpmRebuildProjectDirs);
   }
 
-  // exec turbo run test lint build
-  await execTurborepo(context, args);
+  // exec test steps across all generated packages
+  await execSteps(context, args);
 }
 
 const argv = process.argv.slice(2);
@@ -380,8 +340,7 @@ try {
 } finally {
   if (context.tmpdir && !args.keep) {
     // Delete all tmp dirs
-    // We keep this folder on CI because it's cleared automatically, and because we want to upload the json summaries
-    // which are generated in `${context.tmpdir}/.turbo/runs`
+    // We keep this folder on CI because it's cleared automatically
     await spinner("Cleaning temporary folder...", () =>
       rm(context.tmpdir, { recursive: true, force: true, maxRetries: 2 }),
     );

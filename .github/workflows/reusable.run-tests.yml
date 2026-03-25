@@ -43,9 +43,6 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
 
-#      - name: Cache for Turbo
-#        uses: rharkor/caching-for-turbo@v1.8
-
       - uses: oven-sh/setup-bun@v2
         name: Install bun
         with:
@@ -107,52 +104,47 @@ jobs:
         run: bun install
         working-directory: ${{ inputs.destination }}
 
+      - name: Generate types
+        if: contains(inputs.flags, '--cloudflare')
+        shell: bash
+        run: bun run generate-types
+        working-directory: ${{ inputs.destination }}
+
       - name: Run build
         shell: bash
-        run:
-          bun turbo run build --no-update-notifier --framework-inference false
-          --env-mode loose
+        run: bun run build
         working-directory: ${{ inputs.destination }}
 
       - name: Run tests
         shell: bash
         # Bun hangs on Windows
-        run:
-          ${{ runner.os == 'Windows' && 'npm run test' || 'bun turbo run test --only
-          --no-update-notifier --framework-inference false --env-mode loose' }}
+        run: ${{ runner.os == 'Windows' && 'npm run test' || 'bun run test' }}
         working-directory: ${{ inputs.destination }}
 
       - name: Run lint:eslint
+        if: contains(inputs.flags, '--eslint')
         shell: bash
-        run:
-          bun turbo run lint:eslint --only --no-update-notifier --framework-inference
-          false --env-mode loose
+        run: bun run lint:eslint
         working-directory: ${{ inputs.destination }}
 
       - name: Run lint:biome
+        if: contains(inputs.flags, '--biome')
         shell: bash
-        run:
-          bun turbo run lint:biome --only --no-update-notifier --framework-inference
-          false --env-mode loose
+        run: bun run lint:biome
         working-directory: ${{ inputs.destination }}
 
       - name: Run lint:oxlint
+        if: contains(inputs.flags, '--oxlint')
         shell: bash
-        run:
-          bun turbo run lint:oxlint --only --no-update-notifier --framework-inference
-          false --env-mode loose
+        run: bun run lint:oxlint
         working-directory: ${{ inputs.destination }}
 
       - name: Run typecheck
         shell: bash
-        run:
-          bun turbo run typecheck --only --no-update-notifier --framework-inference
-          false --env-mode loose
+        run: bun run typecheck
         working-directory: ${{ inputs.destination }}
 
       - name: Run knip
         shell: bash
-        run:
-          bun turbo run knip --only --no-update-notifier --framework-inference false
-          --env-mode loose
+        run: bun run knip
         working-directory: ${{ inputs.destination }}

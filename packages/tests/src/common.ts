@@ -2,14 +2,12 @@ import { readFile, writeFile } from "node:fs/promises";
 import { basename, join } from "node:path";
 import { isNode, parseDocument } from "yaml";
 import packageJson from "../package.json" with { type: "json" };
-import type { GlobalContext } from "./types.js";
 
 export async function updatePackageJson(
   projectDir: string,
   flags: string[],
   packedTestsUtils?: string,
   packageManager?: string,
-  addTurbo?: boolean,
 ) {
   // add vitest and lint script
   const pkgjson = JSON.parse(await readFile(join(projectDir, "package.json"), "utf-8"));
@@ -30,6 +28,8 @@ export async function updatePackageJson(
   // Storybook create .ts files that imports .vue files, and tsc complains about that
   if (!flags.includes("storybook") || !flags.includes("vue")) {
     pkgjson.scripts.typecheck = "tsc --noEmit";
+  } else {
+    pkgjson.scripts.typecheck = "echo 'typecheck skipped for storybook+vue'";
   }
   pkgjson.devDependencies ??= {};
   pkgjson.devDependencies.vitest = packageJson.devDependencies.vitest;
@@ -41,9 +41,6 @@ export async function updatePackageJson(
   }
   if (packageManager) {
     pkgjson.packageManager = packageManager;
-  }
-  if (addTurbo) {
-    pkgjson.devDependencies.turbo = packageJson.devDependencies.turbo;
   }
   await writeFile(join(projectDir, "package.json"), JSON.stringify(pkgjson, undefined, 2), "utf-8");
 
@@ -72,48 +69,6 @@ export default defineConfig({
   },
 } as ViteUserConfig);
 `,
-    "utf-8",
-  );
-}
-
-export async function createTurboConfig(context: GlobalContext) {
-  await writeFile(
-    join(context.tmpdir, "turbo.json"),
-    JSON.stringify({
-      $schema: "https://turbo.build/schema.json",
-      tasks: {
-        "generate-types": {
-          outputs: ["worker-configuration.d.ts"],
-        },
-        build: {
-          dependsOn: ["^build", "generate-types"],
-          outputs: ["dist/**"],
-        },
-        test: {
-          dependsOn: ["generate-types", "build"],
-          env: ["TEST_*"],
-        },
-        "lint:eslint": {
-          dependsOn: ["generate-types", "build"],
-        },
-        "lint:biome": {
-          dependsOn: ["generate-types", "build"],
-        },
-        "lint:oxlint": {
-          dependsOn: ["build"],
-        },
-        typecheck: {
-          dependsOn: ["generate-types", "build"],
-        },
-        knip: {
-          // adding "test" because of possible race conditions as knip can execute some files
-          dependsOn: ["build", "test"],
-        },
-      },
-      remoteCache: {
-        signature: false,
-      },
-    }),
     "utf-8",
   );
 }
