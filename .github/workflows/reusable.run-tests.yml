@@ -80,71 +80,73 @@ jobs:
 
       - name: Run Bati CLI
         shell: bash
-        run: bun ./bati-cli/index.js --knip ${{ inputs.flags }} ${{ inputs.destination }}
+        # Run the CLI with the destination outside the checkout to prevent tools
+        # like Storybook from walking up and detecting nx.json in the repo root.
+        run: bun ${{ github.workspace }}/bati-cli/index.js --knip ${{ inputs.flags }} ${{ runner.temp }}/${{ inputs.destination }}
 
       - name: Link tests-utils
         shell: bash
-        run: cp -s ../bati-tests-utils/* .
-        working-directory: ${{ inputs.destination }}
+        run: cp -s ${{ github.workspace }}/bati-tests-utils/* .
+        working-directory: ${{ runner.temp }}/${{ inputs.destination }}
 
       - name: Link tests files
         shell: bash
-        run: cp -s ../bati-tests-files/* .
-        working-directory: ${{ inputs.destination }}
+        run: cp -s ${{ github.workspace }}/bati-tests-files/* .
+        working-directory: ${{ runner.temp }}/${{ inputs.destination }}
 
       - name: Prepare Bati tests
         shell: bash
         run:
-          bun ../bati-tests/prepare.js --test-files='${{ inputs.test-files }}' ${{
+          bun ${{ github.workspace }}/bati-tests/prepare.js --test-files='${{ inputs.test-files }}' ${{
           inputs.flags }}
-        working-directory: ${{ inputs.destination }}
+        working-directory: ${{ runner.temp }}/${{ inputs.destination }}
 
       - name: Install dependencies
         shell: bash
         run: bun install
-        working-directory: ${{ inputs.destination }}
+        working-directory: ${{ runner.temp }}/${{ inputs.destination }}
 
       - name: Generate types
         if: contains(inputs.flags, '--cloudflare')
         shell: bash
         run: bun run generate-types
-        working-directory: ${{ inputs.destination }}
+        working-directory: ${{ runner.temp }}/${{ inputs.destination }}
 
       - name: Run build
         shell: bash
         run: bun run build
-        working-directory: ${{ inputs.destination }}
+        working-directory: ${{ runner.temp }}/${{ inputs.destination }}
 
       - name: Run tests
         shell: bash
         # Bun hangs on Windows
         run: ${{ runner.os == 'Windows' && 'npm run test' || 'bun run test' }}
-        working-directory: ${{ inputs.destination }}
+        working-directory: ${{ runner.temp }}/${{ inputs.destination }}
 
       - name: Run lint:eslint
         if: contains(inputs.flags, '--eslint')
         shell: bash
         run: bun run lint:eslint
-        working-directory: ${{ inputs.destination }}
+        working-directory: ${{ runner.temp }}/${{ inputs.destination }}
 
       - name: Run lint:biome
         if: contains(inputs.flags, '--biome')
         shell: bash
         run: bun run lint:biome
-        working-directory: ${{ inputs.destination }}
+        working-directory: ${{ runner.temp }}/${{ inputs.destination }}
 
       - name: Run lint:oxlint
         if: contains(inputs.flags, '--oxlint')
         shell: bash
         run: bun run lint:oxlint
-        working-directory: ${{ inputs.destination }}
+        working-directory: ${{ runner.temp }}/${{ inputs.destination }}
 
       - name: Run typecheck
         shell: bash
         run: bun run typecheck
-        working-directory: ${{ inputs.destination }}
+        working-directory: ${{ runner.temp }}/${{ inputs.destination }}
 
       - name: Run knip
         shell: bash
         run: bun run knip
-        working-directory: ${{ inputs.destination }}
+        working-directory: ${{ runner.temp }}/${{ inputs.destination }}
