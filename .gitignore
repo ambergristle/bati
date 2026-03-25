@@ -108,6 +108,7 @@ dist
 
 # Nx
 .nx/cache
+.nx/workspace-data
 
 # Generated GitHub Worflow action
 .github/actions/bati-gen
