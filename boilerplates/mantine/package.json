@@ -43,11 +43,11 @@
   },
   "typesVersions": {
     "*": {
-      "pages/+Layout": [
-        "./dist/types/pages/+Layout.d.mts"
-      ],
       "components/Link": [
         "./dist/types/components/Link.d.mts"
+      ],
+      "pages/+Layout": [
+        "./dist/types/pages/+Layout.d.mts"
       ]
     }
   },

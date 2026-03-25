@@ -127,7 +127,11 @@ export async function build() {
           packageJson.exports = sortObject(packageJsonTypes.exports);
           packageJson.typesVersions = sortObject(packageJsonTypes.typesVersions);
 
-          await writeFile("package.json", JSON.stringify(packageJson, undefined, 2).replace(/\r\n/g, "\n"), "utf-8");
+          await writeFile(
+            "package.json",
+            `${JSON.stringify(packageJson, undefined, 2).replace(/\r\n/g, "\n")}\n`,
+            "utf-8",
+          );
 
           console.log("Types generated into", distDir);
           console.log("Build step complete");
@@ -140,7 +144,7 @@ export async function build() {
       delete packageJson.exports;
       delete packageJson.typesVersions;
 
-      await writeFile("package.json", JSON.stringify(packageJson, undefined, 2).replace(/\r\n/g, "\n"), "utf-8");
+      await writeFile("package.json", `${JSON.stringify(packageJson, undefined, 2).replace(/\r\n/g, "\n")}\n`, "utf-8");
     }
 
     buildPromises.push(removeTypes());
