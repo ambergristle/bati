@@ -1,7 +1,7 @@
 import type { RootContent } from "mdast";
 import { fromMarkdown } from "mdast-util-from-markdown";
 import { toMarkdown } from "mdast-util-to-markdown";
-import { expect, test } from "vitest";
+import { expect, test } from "vite-plus/test";
 import { createTOC } from "../../src/markdown/createTOC.js";
 
 const markdownTree = fromMarkdown(`

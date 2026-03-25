@@ -1,4 +1,4 @@
-import { expect, test } from "vitest";
+import { expect, test } from "vite-plus/test";
 import { commentMarker, createMarkdownComment } from "../../src/markdown/utils.js";
 
 test.each([
@@ -38,9 +38,15 @@ test.each([
 });
 
 test.each([
-  [{ category: "Error tracking", flag: "sentry" }, 'bati:start category="Error tracking" flag="sentry"'],
+  [
+    { category: "Error tracking", flag: "sentry" },
+    'bati:start category="Error tracking" flag="sentry"',
+  ],
   [{ name: "notbati", category: "Error tracking" }, 'notbati:start category="Error tracking"'],
-  [{ number: 123, bool: true, obj: [{ p: "p" }] }, 'bati:start number=123 bool=true obj=[{"p":"p"}]'],
+  [
+    { number: 123, bool: true, obj: [{ p: "p" }] },
+    'bati:start number=123 bool=true obj=[{"p":"p"}]',
+  ],
 ])("createMarkdownComment (%s)", (options, expected) => {
   const wrapper = createMarkdownComment("start", options);
   expect(wrapper?.type).toBe("html");

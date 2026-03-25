@@ -1,4 +1,4 @@
-import { afterAll, afterEach, assert, beforeAll, beforeEach, describe, test } from "vitest";
+import { afterAll, afterEach, assert, beforeAll, beforeEach, describe, test } from "vite-plus/test";
 import { PackageJsonTransformer } from "../../src/utils/package.js";
 
 describe("dependencies", () => {

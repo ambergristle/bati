@@ -1,44 +1,15 @@
 {
   "name": "@batijs/shared-db",
-  "private": true,
   "version": "0.0.1",
+  "private": true,
   "description": "",
-  "type": "module",
-  "scripts": {
-    "check-types": "tsc --noEmit",
-    "build": "bati-compile-boilerplate"
-  },
   "keywords": [],
-  "author": "",
   "license": "MIT",
-  "devDependencies": {
-    "@batijs/compile": "workspace:*",
-    "@types/node": "^20.19.37",
-    "@universal-middleware/core": "^0.4.17"
-  },
-  "dependencies": {
-    "@batijs/core": "workspace:*"
-  },
+  "author": "",
   "files": [
     "dist/"
   ],
-  "exports": {
-    "./server/db-middleware": {
-      "types": "./dist/types/server/db-middleware.d.mts"
-    },
-    "./drizzle/dist/types/database/drizzle/db": {
-      "types": "./dist/types/drizzle/dist/types/database/drizzle/db.d.mts"
-    },
-    "./kysely/dist/types/database/kysely/db": {
-      "types": "./dist/types/kysely/dist/types/database/kysely/db.d.mts"
-    },
-    "./kysely/dist/types/database/kysely/types": {
-      "types": "./dist/types/kysely/dist/types/database/kysely/types.d.mts"
-    },
-    "./sqlite/dist/types/database/sqlite/db": {
-      "types": "./dist/types/sqlite/dist/types/database/sqlite/db.d.mts"
-    }
-  },
+  "type": "module",
   "typesVersions": {
     "*": {
       "server/db-middleware": [
@@ -57,5 +28,34 @@
         "./dist/types/sqlite/dist/types/database/sqlite/db.d.mts"
       ]
     }
+  },
+  "exports": {
+    "./drizzle/dist/types/database/drizzle/db": {
+      "types": "./dist/types/drizzle/dist/types/database/drizzle/db.d.mts"
+    },
+    "./kysely/dist/types/database/kysely/db": {
+      "types": "./dist/types/kysely/dist/types/database/kysely/db.d.mts"
+    },
+    "./kysely/dist/types/database/kysely/types": {
+      "types": "./dist/types/kysely/dist/types/database/kysely/types.d.mts"
+    },
+    "./server/db-middleware": {
+      "types": "./dist/types/server/db-middleware.d.mts"
+    },
+    "./sqlite/dist/types/database/sqlite/db": {
+      "types": "./dist/types/sqlite/dist/types/database/sqlite/db.d.mts"
+    }
+  },
+  "scripts": {
+    "check-types": "tsc --noEmit",
+    "build": "bati-compile-boilerplate"
+  },
+  "dependencies": {
+    "@batijs/core": "workspace:*"
+  },
+  "devDependencies": {
+    "@batijs/compile": "workspace:*",
+    "@types/node": "^20.19.37",
+    "@universal-middleware/core": "^0.4.17"
   }
 }

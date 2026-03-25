@@ -1,84 +1,15 @@
 {
   "name": "@batijs/solid",
-  "private": true,
   "version": "0.0.1",
+  "private": true,
   "description": "",
-  "type": "module",
-  "scripts": {
-    "check-types": "tsc --noEmit",
-    "build": "bati-compile-boilerplate"
-  },
   "keywords": [],
-  "author": "",
   "license": "MIT",
-  "devDependencies": {
-    "@batijs/compile": "workspace:*",
-    "@types/node": "^20.19.37",
-    "solid-js": "^1.9.11",
-    "tailwindcss": "^4.2.2",
-    "typescript": "^6.0.2",
-    "vike": "^0.4.255",
-    "vike-photon": "^0.1.25",
-    "vike-solid": "^0.8.1",
-    "vite": "^8.0.2",
-    "vite-plugin-solid": "^2.11.11"
-  },
-  "dependencies": {
-    "@batijs/core": "workspace:*"
-  },
+  "author": "",
   "files": [
     "dist/"
   ],
-  "exports": {
-    "./components/Link": {
-      "types": "./dist/types/components/Link.d.mts"
-    },
-    "./pages/+Head": {
-      "types": "./dist/types/pages/+Head.d.mts"
-    },
-    "./pages/+Layout": {
-      "types": "./dist/types/pages/+Layout.d.mts"
-    },
-    "./pages/+config": {
-      "types": "./dist/types/pages/+config.d.mts"
-    },
-    "./pages/+onPageTransitionEnd": {
-      "types": "./dist/types/pages/+onPageTransitionEnd.d.mts"
-    },
-    "./pages/+onPageTransitionStart": {
-      "types": "./dist/types/pages/+onPageTransitionStart.d.mts"
-    },
-    "./pages/_error/+Page": {
-      "types": "./dist/types/pages/_error/+Page.d.mts"
-    },
-    "./pages/index/+Page": {
-      "types": "./dist/types/pages/index/+Page.d.mts"
-    },
-    "./pages/index/Counter": {
-      "types": "./dist/types/pages/index/Counter.d.mts"
-    },
-    "./pages/star-wars/types": {
-      "types": "./dist/types/pages/star-wars/types.d.mts"
-    },
-    "./pages/todo/+Page": {
-      "types": "./dist/types/pages/todo/+Page.d.mts"
-    },
-    "./pages/todo/TodoList": {
-      "types": "./dist/types/pages/todo/TodoList.d.mts"
-    },
-    "./pages/star-wars/@id/+Page": {
-      "types": "./dist/types/pages/star-wars/@id/+Page.d.mts"
-    },
-    "./pages/star-wars/@id/+data": {
-      "types": "./dist/types/pages/star-wars/@id/+data.d.mts"
-    },
-    "./pages/star-wars/index/+Page": {
-      "types": "./dist/types/pages/star-wars/index/+Page.d.mts"
-    },
-    "./pages/star-wars/index/+data": {
-      "types": "./dist/types/pages/star-wars/index/+data.d.mts"
-    }
-  },
+  "type": "module",
   "typesVersions": {
     "*": {
       "components/Link": [
@@ -130,5 +61,74 @@
         "./dist/types/pages/star-wars/index/+data.d.mts"
       ]
     }
+  },
+  "exports": {
+    "./components/Link": {
+      "types": "./dist/types/components/Link.d.mts"
+    },
+    "./pages/_error/+Page": {
+      "types": "./dist/types/pages/_error/+Page.d.mts"
+    },
+    "./pages/+config": {
+      "types": "./dist/types/pages/+config.d.mts"
+    },
+    "./pages/+Head": {
+      "types": "./dist/types/pages/+Head.d.mts"
+    },
+    "./pages/+Layout": {
+      "types": "./dist/types/pages/+Layout.d.mts"
+    },
+    "./pages/+onPageTransitionEnd": {
+      "types": "./dist/types/pages/+onPageTransitionEnd.d.mts"
+    },
+    "./pages/+onPageTransitionStart": {
+      "types": "./dist/types/pages/+onPageTransitionStart.d.mts"
+    },
+    "./pages/index/+Page": {
+      "types": "./dist/types/pages/index/+Page.d.mts"
+    },
+    "./pages/index/Counter": {
+      "types": "./dist/types/pages/index/Counter.d.mts"
+    },
+    "./pages/star-wars/@id/+data": {
+      "types": "./dist/types/pages/star-wars/@id/+data.d.mts"
+    },
+    "./pages/star-wars/@id/+Page": {
+      "types": "./dist/types/pages/star-wars/@id/+Page.d.mts"
+    },
+    "./pages/star-wars/index/+data": {
+      "types": "./dist/types/pages/star-wars/index/+data.d.mts"
+    },
+    "./pages/star-wars/index/+Page": {
+      "types": "./dist/types/pages/star-wars/index/+Page.d.mts"
+    },
+    "./pages/star-wars/types": {
+      "types": "./dist/types/pages/star-wars/types.d.mts"
+    },
+    "./pages/todo/+Page": {
+      "types": "./dist/types/pages/todo/+Page.d.mts"
+    },
+    "./pages/todo/TodoList": {
+      "types": "./dist/types/pages/todo/TodoList.d.mts"
+    }
+  },
+  "scripts": {
+    "check-types": "tsc --noEmit",
+    "build": "bati-compile-boilerplate"
+  },
+  "dependencies": {
+    "@batijs/core": "workspace:*"
+  },
+  "devDependencies": {
+    "@batijs/compile": "workspace:*",
+    "@types/node": "^20.19.37",
+    "solid-js": "^1.9.11",
+    "tailwindcss": "^4.2.2",
+    "typescript": "^6.0.2",
+    "vike": "^0.4.255",
+    "vike-photon": "^0.1.25",
+    "vike-solid": "^0.8.1",
+    "vite": "^8.0.2",
+    "vite-plugin-solid": "^2.11.11"
   }
 }

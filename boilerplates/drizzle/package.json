@@ -1,45 +1,15 @@
 {
   "name": "@batijs/drizzle",
-  "private": true,
   "version": "0.0.1",
+  "private": true,
   "description": "",
-  "type": "module",
-  "scripts": {
-    "check-types": "tsc --noEmit",
-    "build": "bati-compile-boilerplate"
-  },
   "keywords": [],
-  "author": "",
   "license": "MIT",
-  "devDependencies": {
-    "@batijs/compile": "workspace:*",
-    "@types/better-sqlite3": "^7.6.13",
-    "@types/node": "^20.19.37",
-    "better-sqlite3": "^12.8.0",
-    "dotenv": "^17.3.1",
-    "drizzle-kit": "^0.31.10",
-    "drizzle-orm": "^0.45.1"
-  },
-  "dependencies": {
-    "@batijs/core": "workspace:*"
-  },
+  "author": "",
   "files": [
     "dist/"
   ],
-  "exports": {
-    "./drizzle.config": {
-      "types": "./dist/types/drizzle.config.d.mts"
-    },
-    "./database/drizzle/db": {
-      "types": "./dist/types/database/drizzle/db.d.mts"
-    },
-    "./database/drizzle/queries/todos": {
-      "types": "./dist/types/database/drizzle/queries/todos.d.mts"
-    },
-    "./database/drizzle/schema/todos": {
-      "types": "./dist/types/database/drizzle/schema/todos.d.mts"
-    }
-  },
+  "type": "module",
   "typesVersions": {
     "*": {
       "drizzle.config": [
@@ -55,5 +25,35 @@
         "./dist/types/database/drizzle/schema/todos.d.mts"
       ]
     }
+  },
+  "exports": {
+    "./database/drizzle/db": {
+      "types": "./dist/types/database/drizzle/db.d.mts"
+    },
+    "./database/drizzle/queries/todos": {
+      "types": "./dist/types/database/drizzle/queries/todos.d.mts"
+    },
+    "./database/drizzle/schema/todos": {
+      "types": "./dist/types/database/drizzle/schema/todos.d.mts"
+    },
+    "./drizzle.config": {
+      "types": "./dist/types/drizzle.config.d.mts"
+    }
+  },
+  "scripts": {
+    "check-types": "tsc --noEmit",
+    "build": "bati-compile-boilerplate"
+  },
+  "dependencies": {
+    "@batijs/core": "workspace:*"
+  },
+  "devDependencies": {
+    "@batijs/compile": "workspace:*",
+    "@types/better-sqlite3": "^7.6.13",
+    "@types/node": "^20.19.37",
+    "better-sqlite3": "^12.8.0",
+    "dotenv": "^17.3.1",
+    "drizzle-kit": "^0.31.10",
+    "drizzle-orm": "^0.45.1"
   }
 }

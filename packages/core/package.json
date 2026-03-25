@@ -2,19 +2,39 @@
   "name": "@batijs/core",
   "version": "0.0.599",
   "description": "",
+  "keywords": [],
+  "license": "MIT",
+  "author": "Joël Charles <joel.charles91@gmail.com>",
+  "repository": "https://github.com/vikejs/bati",
+  "files": [
+    "dist/"
+  ],
   "type": "module",
   "types": "./dist/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "config": [
+        "./dist/config.d.ts"
+      ],
+      "types": [
+        "./global.d.ts"
+      ]
+    }
+  },
+  "exports": {
+    ".": "./dist/index.js",
+    "./config": "./dist/config.js",
+    "./types": {
+      "types": "./global.d.ts"
+    }
+  },
   "scripts": {
     "check-types": "tsc --noEmit",
     "vue": "tsx src/parse/linters/vue.ts",
-    "test": "vitest run",
-    "test:ci": "vitest run",
+    "test": "vp test run",
+    "test:ci": "vp test run",
     "build": "tsdown"
   },
-  "keywords": [],
-  "author": "Joël Charles <joel.charles91@gmail.com>",
-  "repository": "https://github.com/vikejs/bati",
-  "license": "MIT",
   "devDependencies": {
     "@batijs/features": "workspace:*",
     "@types/eslint": "^9.6.1",
@@ -42,29 +62,8 @@
     "tsx": "^4.21.0",
     "typescript": "^6.0.2",
     "unplugin-purge-polyfills": "^0.1.0",
-    "vitest": "^4.1.0",
     "vue-eslint-parser": "^10.4.0",
     "which": "^6.0.1",
     "yaml": "^2.8.3"
-  },
-  "exports": {
-    ".": "./dist/index.js",
-    "./config": "./dist/config.js",
-    "./types": {
-      "types": "./global.d.ts"
-    }
-  },
-  "typesVersions": {
-    "*": {
-      "config": [
-        "./dist/config.d.ts"
-      ],
-      "types": [
-        "./global.d.ts"
-      ]
-    }
-  },
-  "files": [
-    "dist/"
-  ]
+  }
 }

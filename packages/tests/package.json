@@ -1,20 +1,20 @@
 {
   "name": "@batijs/tests",
-  "private": true,
   "version": "0.0.599",
+  "private": true,
+  "description": "Next-gen scaffolder. Get started with fully-functional apps, and choose any tool you want",
+  "keywords": [],
+  "license": "MIT",
+  "author": "Joël Charles <joel.charles91@gmail.com>",
+  "repository": "https://github.com/vikejs/bati",
   "type": "module",
   "scripts": {
     "check-types": "tsc --noEmit",
     "start": "tsx src/index.ts",
-    "test": "vitest run",
+    "test": "vp test run",
     "test:e2e": "tsx src/index.ts",
     "build": "tsdown"
   },
-  "keywords": [],
-  "description": "Next-gen scaffolder. Get started with fully-functional apps, and choose any tool you want",
-  "author": "Joël Charles <joel.charles91@gmail.com>",
-  "repository": "https://github.com/vikejs/bati",
-  "license": "MIT",
   "devDependencies": {
     "@batijs/core": "workspace:*",
     "@batijs/features": "workspace:^",

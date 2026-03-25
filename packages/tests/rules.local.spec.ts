@@ -3,7 +3,7 @@ import * as http from "node:http";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { combinate } from "@batijs/tests-utils";
-import { afterAll, beforeAll, describe, expect, test } from "vitest";
+import { afterAll, beforeAll, describe, expect, test } from "vite-plus/test";
 import { execLocalBati } from "./src/exec-bati.js";
 
 const matrix = combinate([
@@ -53,7 +53,9 @@ function prepareAndExecute(flags: string[]) {
   // Common tests
 
   test(`CLI fails: ${flags.join(",")}`, async () => {
-    await expect(execLocalBati(context, flags, false)).rejects.toThrow("Process exited with code 5");
+    await expect(execLocalBati(context, flags, false)).rejects.toThrow(
+      "Process exited with code 5",
+    );
   });
 
   return {
@@ -61,6 +63,9 @@ function prepareAndExecute(flags: string[]) {
   };
 }
 
-describe.concurrent.each(matrix)(matrix[0].map(() => "%s").join(" + "), (...currentFlags: string[]) => {
-  prepareAndExecute(currentFlags);
-});
+describe.concurrent.each(matrix)(
+  matrix[0].map(() => "%s").join(" + "),
+  (...currentFlags: string[]) => {
+    prepareAndExecute(currentFlags);
+  },
+);

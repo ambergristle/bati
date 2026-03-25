@@ -77,19 +77,25 @@ async function createTsconfig(name: string) {
   await writeFile(dest, JSON.stringify(json, undefined, 2), "utf-8");
 }
 
-async function updateCliDependencies() {
+async function updateCliViteConfig() {
   const deps: string[] = [];
 
   for await (const dep of listBoilerplates()) {
     deps.push(`${dep}#build`);
   }
 
-  const cliTurboJson = join(__packages, "cli", "turbo.json");
-  const content = JSON.parse(await readFile(cliTurboJson, "utf-8"));
+  deps.sort();
 
-  content.tasks.build.dependsOn = ["^build", ...deps.sort()];
+  const cliViteConfig = join(__packages, "cli", "vite.config.ts");
+  const content = await readFile(cliViteConfig, "utf-8");
 
-  await writeFile(cliTurboJson, JSON.stringify(content, undefined, 2), "utf-8");
+  // Replace the dependsOn array while preserving the surrounding structure
+  const updated = content.replace(
+    /(dependsOn:\s*\[)[^\]]*(\])/s,
+    `$1\n          "@batijs/core#build",\n          "@batijs/compile#build",\n          "@batijs/features#build",\n          "@batijs/build#build",\n${deps.map((d) => `          ${JSON.stringify(d)}`).join(",\n")},\n        $2`,
+  );
+
+  await writeFile(cliViteConfig, updated, "utf-8");
 }
 
 async function exec(name: string) {
@@ -98,7 +104,7 @@ async function exec(name: string) {
   await createPackageJson(name);
   await createBatiConfig(name);
   await createTsconfig(name);
-  await updateCliDependencies();
+  await updateCliViteConfig();
 
   return root;
 }

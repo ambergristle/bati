@@ -1,30 +1,15 @@
 {
   "name": "@batijs/trpc",
-  "private": true,
   "version": "0.0.1",
+  "private": true,
   "description": "",
-  "type": "module",
-  "scripts": {
-    "check-types": "tsc --noEmit",
-    "build": "bati-compile-boilerplate"
-  },
   "keywords": [],
-  "author": "",
   "license": "MIT",
-  "devDependencies": {
-    "@batijs/compile": "workspace:*",
-    "@trpc/client": "^11.14.1",
-    "@trpc/server": "^11.14.1",
-    "@types/node": "^20.19.37",
-    "@universal-middleware/core": "^0.4.17",
-    "vite": "^8.0.2"
-  },
-  "dependencies": {
-    "@batijs/core": "workspace:*"
-  },
+  "author": "",
   "files": [
     "dist/"
   ],
+  "type": "module",
   "typesVersions": {
     "*": {
       "server/trpc-handler": [
@@ -36,8 +21,8 @@
       "trpc/server": [
         "./dist/types/trpc/server.d.mts"
       ],
-      "sqlite/dist/types/database/sqlite/db": [
-        "./dist/types/sqlite/dist/types/database/sqlite/db.d.mts"
+      "drizzle/dist/types/database/drizzle/db": [
+        "./dist/types/drizzle/dist/types/database/drizzle/db.d.mts"
       ],
       "kysely/dist/types/database/kysely/db": [
         "./dist/types/kysely/dist/types/database/kysely/db.d.mts"
@@ -45,8 +30,8 @@
       "kysely/dist/types/database/kysely/types": [
         "./dist/types/kysely/dist/types/database/kysely/types.d.mts"
       ],
-      "drizzle/dist/types/database/drizzle/db": [
-        "./dist/types/drizzle/dist/types/database/drizzle/db.d.mts"
+      "sqlite/dist/types/database/sqlite/db": [
+        "./dist/types/sqlite/dist/types/database/sqlite/db.d.mts"
       ]
     }
   },
@@ -72,5 +57,20 @@
     "./trpc/server": {
       "types": "./dist/types/trpc/server.d.mts"
     }
+  },
+  "scripts": {
+    "check-types": "tsc --noEmit",
+    "build": "bati-compile-boilerplate"
+  },
+  "dependencies": {
+    "@batijs/core": "workspace:*"
+  },
+  "devDependencies": {
+    "@batijs/compile": "workspace:*",
+    "@trpc/client": "^11.14.1",
+    "@trpc/server": "^11.14.1",
+    "@types/node": "^20.19.37",
+    "@universal-middleware/core": "^0.4.17",
+    "vite": "^8.0.2"
   }
 }

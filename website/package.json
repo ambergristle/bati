@@ -2,6 +2,15 @@
   "name": "@batijs/elements",
   "version": "0.0.56",
   "description": "BatiJS website as Web Components",
+  "keywords": [
+    "bati",
+    "batijs",
+    "vike"
+  ],
+  "author": "Joël Charles <joel.charles91@gmail.com>",
+  "files": [
+    "dist/elements"
+  ],
   "type": "module",
   "main": "dist/elements/full.js",
   "scripts": {
@@ -15,15 +24,9 @@
     "release-widget": "bumpp --no-tag && pnpm run build:widget && pnpm publish",
     "release-widget:ci": "bumpp --no-tag -y && pnpm run build:widget && pnpm publish"
   },
-  "keywords": [
-    "bati",
-    "batijs",
-    "vike"
-  ],
-  "author": "Joël Charles <joel.charles91@gmail.com>",
   "devDependencies": {
     "@babel/core": "^7.29.0",
-    "@batijs/features": "workspace:*",
+    "@batijs/features": "file:../packages/features",
     "@floating-ui/dom": "^1.7.6",
     "@floating-ui/utils": "^0.2.11",
     "@solid-primitives/scheduled": "^1.5.3",
@@ -45,8 +48,5 @@
     "vike-solid": "^0.8.1",
     "vite": "^8.0.2",
     "vite-plugin-solid": "^2.11.11"
-  },
-  "files": [
-    "dist/elements"
-  ]
+  }
 }

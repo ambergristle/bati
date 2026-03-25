@@ -1,5 +1,5 @@
 import { BatiSet, features } from "@batijs/features";
-import { assert, describe, test } from "vitest";
+import { assert, describe, test } from "vite-plus/test";
 import { formatCode } from "../src/format.js";
 import { transformAndFormat } from "../src/index.js";
 import { transform } from "../src/parse/linters/index.js";
