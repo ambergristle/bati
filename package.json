@@ -1,7 +1,7 @@
 {
   "name": "bati",
-  "version": "0.0.604",
   "private": true,
+  "version": "0.0.605",
   "description": "@batijs monorepo",
   "keywords": [],
   "license": "MIT",
