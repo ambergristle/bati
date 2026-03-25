@@ -124,8 +124,8 @@ export async function build() {
           );
 
           const packageJson = JSON.parse(await readFile("package.json", "utf-8"));
-          packageJson.exports = packageJsonTypes.exports;
-          packageJson.typesVersions = packageJsonTypes.typesVersions;
+          packageJson.exports = sortObject(packageJsonTypes.exports);
+          packageJson.typesVersions = sortObject(packageJsonTypes.typesVersions);
 
           await writeFile("package.json", JSON.stringify(packageJson, undefined, 2).replace(/\r\n/g, "\n"), "utf-8");
 
@@ -147,4 +147,8 @@ export async function build() {
   }
 
   await Promise.all(buildPromises);
+}
+
+function sortObject<T extends object>(obj: T): T {
+  return Object.fromEntries(Object.entries(obj).sort(([a], [b]) => a.localeCompare(b))) as T;
 }
