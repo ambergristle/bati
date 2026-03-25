@@ -31,13 +31,13 @@
   ],
   "exports": {
     "./lib/utils": {
-      "types": "./dist/types/lib/utils.d.ts"
+      "types": "./dist/types/lib/utils.d.mts"
     }
   },
   "typesVersions": {
     "*": {
       "lib/utils": [
-        "./dist/types/lib/utils.d.ts"
+        "./dist/types/lib/utils.d.mts"
       ]
     }
   }

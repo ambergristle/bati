@@ -22,17 +22,5 @@
   },
   "files": [
     "dist/"
-  ],
-  "exports": {
-    "./cloudflare-entry": {
-      "types": "./dist/types/cloudflare-entry.d.ts"
-    }
-  },
-  "typesVersions": {
-    "*": {
-      "cloudflare-entry": [
-        "./dist/types/cloudflare-entry.d.ts"
-      ]
-    }
-  }
+  ]
 }

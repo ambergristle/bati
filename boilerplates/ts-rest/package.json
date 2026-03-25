@@ -26,26 +26,26 @@
     "dist/"
   ],
   "exports": {
-    "./ts-rest/contract": {
-      "types": "./dist/types/ts-rest/contract.d.ts"
-    },
     "./server/ts-rest-handler": {
-      "types": "./dist/types/server/ts-rest-handler.d.ts"
+      "types": "./dist/types/server/ts-rest-handler.d.mts"
     },
     "./ts-rest/client": {
-      "types": "./dist/types/ts-rest/client.d.ts"
+      "types": "./dist/types/ts-rest/client.d.mts"
+    },
+    "./ts-rest/contract": {
+      "types": "./dist/types/ts-rest/contract.d.mts"
     }
   },
   "typesVersions": {
     "*": {
-      "ts-rest/contract": [
-        "./dist/types/ts-rest/contract.d.ts"
-      ],
       "server/ts-rest-handler": [
-        "./dist/types/server/ts-rest-handler.d.ts"
+        "./dist/types/server/ts-rest-handler.d.mts"
       ],
       "ts-rest/client": [
-        "./dist/types/ts-rest/client.d.ts"
+        "./dist/types/ts-rest/client.d.mts"
+      ],
+      "ts-rest/contract": [
+        "./dist/types/ts-rest/contract.d.mts"
       ]
     }
   }

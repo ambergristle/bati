@@ -24,13 +24,13 @@
   ],
   "exports": {
     "./vite.config": {
-      "types": "./dist/types/vite.config.d.ts"
+      "types": "./dist/types/vite.config.d.mts"
     }
   },
   "typesVersions": {
     "*": {
       "vite.config": [
-        "./dist/types/vite.config.d.ts"
+        "./dist/types/vite.config.d.mts"
       ]
     }
   }

@@ -35,19 +35,19 @@
   ],
   "exports": {
     "./components/Link": {
-      "types": "./dist/types/components/Link.d.ts"
+      "types": "./dist/types/components/Link.d.mts"
     },
     "./pages/+Layout": {
-      "types": "./dist/types/pages/+Layout.d.ts"
+      "types": "./dist/types/pages/+Layout.d.mts"
     }
   },
   "typesVersions": {
     "*": {
       "components/Link": [
-        "./dist/types/components/Link.d.ts"
+        "./dist/types/components/Link.d.mts"
       ],
       "pages/+Layout": [
-        "./dist/types/pages/+Layout.d.ts"
+        "./dist/types/pages/+Layout.d.mts"
       ]
     }
   }

@@ -32,13 +32,13 @@
   ],
   "exports": {
     "./eslint.config": {
-      "types": "./dist/types/eslint.config.d.ts"
+      "types": "./dist/types/eslint.config.d.mts"
     }
   },
   "typesVersions": {
     "*": {
       "eslint.config": [
-        "./dist/types/eslint.config.d.ts"
+        "./dist/types/eslint.config.d.mts"
       ]
     }
   }

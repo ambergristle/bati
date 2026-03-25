@@ -23,7 +23,7 @@
     "npm-run-all2": "^8.0.4",
     "source-map-support": "^0.5.21",
     "tsx": "^4.21.0",
-    "typescript": "^5.9.3",
+    "typescript": "^6.0.2",
     "vitest": "^4.1.0",
     "which": "^6.0.1"
   },
@@ -35,31 +35,31 @@
   ],
   "exports": {
     "./vitest.config": {
-      "types": "./dist/types/vitest.config.d.ts"
-    },
-    "./cdk/lib/vike-stack": {
-      "types": "./dist/types/cdk/lib/vike-stack.d.ts"
-    },
-    "./cdk/bin/infrastructure": {
-      "types": "./dist/types/cdk/bin/infrastructure.d.ts"
+      "types": "./dist/types/vitest.config.d.mts"
     },
     "./tests/aws_handler.spec": {
-      "types": "./dist/types/tests/aws_handler.spec.d.ts"
+      "types": "./dist/types/tests/aws_handler.spec.d.mts"
+    },
+    "./cdk/bin/infrastructure": {
+      "types": "./dist/types/cdk/bin/infrastructure.d.mts"
+    },
+    "./cdk/lib/vike-stack": {
+      "types": "./dist/types/cdk/lib/vike-stack.d.mts"
     }
   },
   "typesVersions": {
     "*": {
       "vitest.config": [
-        "./dist/types/vitest.config.d.ts"
-      ],
-      "cdk/lib/vike-stack": [
-        "./dist/types/cdk/lib/vike-stack.d.ts"
-      ],
-      "cdk/bin/infrastructure": [
-        "./dist/types/cdk/bin/infrastructure.d.ts"
+        "./dist/types/vitest.config.d.mts"
       ],
       "tests/aws_handler.spec": [
-        "./dist/types/tests/aws_handler.spec.d.ts"
+        "./dist/types/tests/aws_handler.spec.d.mts"
+      ],
+      "cdk/bin/infrastructure": [
+        "./dist/types/cdk/bin/infrastructure.d.mts"
+      ],
+      "cdk/lib/vike-stack": [
+        "./dist/types/cdk/lib/vike-stack.d.mts"
       ]
     }
   }

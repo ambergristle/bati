@@ -22,17 +22,5 @@
   },
   "files": [
     "dist/"
-  ],
-  "exports": {
-    "./sentry.browser.config copy": {
-      "types": "./dist/types/sentry.browser.config copy.d.ts"
-    }
-  },
-  "typesVersions": {
-    "*": {
-      "sentry.browser.config copy": [
-        "./dist/types/sentry.browser.config copy.d.ts"
-      ]
-    }
-  }
+  ]
 }

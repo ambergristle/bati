@@ -28,31 +28,31 @@
   ],
   "exports": {
     "./drizzle.config": {
-      "types": "./dist/types/drizzle.config.d.ts"
+      "types": "./dist/types/drizzle.config.d.mts"
     },
     "./database/drizzle/db": {
-      "types": "./dist/types/database/drizzle/db.d.ts"
-    },
-    "./database/drizzle/schema/todos": {
-      "types": "./dist/types/database/drizzle/schema/todos.d.ts"
+      "types": "./dist/types/database/drizzle/db.d.mts"
     },
     "./database/drizzle/queries/todos": {
-      "types": "./dist/types/database/drizzle/queries/todos.d.ts"
+      "types": "./dist/types/database/drizzle/queries/todos.d.mts"
+    },
+    "./database/drizzle/schema/todos": {
+      "types": "./dist/types/database/drizzle/schema/todos.d.mts"
     }
   },
   "typesVersions": {
     "*": {
       "drizzle.config": [
-        "./dist/types/drizzle.config.d.ts"
+        "./dist/types/drizzle.config.d.mts"
       ],
       "database/drizzle/db": [
-        "./dist/types/database/drizzle/db.d.ts"
-      ],
-      "database/drizzle/schema/todos": [
-        "./dist/types/database/drizzle/schema/todos.d.ts"
+        "./dist/types/database/drizzle/db.d.mts"
       ],
       "database/drizzle/queries/todos": [
-        "./dist/types/database/drizzle/queries/todos.d.ts"
+        "./dist/types/database/drizzle/queries/todos.d.mts"
+      ],
+      "database/drizzle/schema/todos": [
+        "./dist/types/database/drizzle/schema/todos.d.mts"
       ]
     }
   }

@@ -27,31 +27,31 @@
   ],
   "exports": {
     "./database/sqlite/db": {
-      "types": "./dist/types/database/sqlite/db.d.ts"
+      "types": "./dist/types/database/sqlite/db.d.mts"
     },
     "./database/sqlite/queries/todos": {
-      "types": "./dist/types/database/sqlite/queries/todos.d.ts"
-    },
-    "./database/sqlite/schema/todos": {
-      "types": "./dist/types/database/sqlite/schema/todos.d.ts"
+      "types": "./dist/types/database/sqlite/queries/todos.d.mts"
     },
     "./database/sqlite/schema/all": {
-      "types": "./dist/types/database/sqlite/schema/all.d.ts"
+      "types": "./dist/types/database/sqlite/schema/all.d.mts"
+    },
+    "./database/sqlite/schema/todos": {
+      "types": "./dist/types/database/sqlite/schema/todos.d.mts"
     }
   },
   "typesVersions": {
     "*": {
       "database/sqlite/db": [
-        "./dist/types/database/sqlite/db.d.ts"
+        "./dist/types/database/sqlite/db.d.mts"
       ],
       "database/sqlite/queries/todos": [
-        "./dist/types/database/sqlite/queries/todos.d.ts"
-      ],
-      "database/sqlite/schema/todos": [
-        "./dist/types/database/sqlite/schema/todos.d.ts"
+        "./dist/types/database/sqlite/queries/todos.d.mts"
       ],
       "database/sqlite/schema/all": [
-        "./dist/types/database/sqlite/schema/all.d.ts"
+        "./dist/types/database/sqlite/schema/all.d.mts"
+      ],
+      "database/sqlite/schema/todos": [
+        "./dist/types/database/sqlite/schema/todos.d.mts"
       ]
     }
   }

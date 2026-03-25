@@ -25,13 +25,13 @@
   ],
   "exports": {
     "./database/d1/queries/todos": {
-      "types": "./dist/types/database/d1/queries/todos.d.ts"
+      "types": "./dist/types/database/d1/queries/todos.d.mts"
     }
   },
   "typesVersions": {
     "*": {
       "database/d1/queries/todos": [
-        "./dist/types/database/d1/queries/todos.d.ts"
+        "./dist/types/database/d1/queries/todos.d.mts"
       ]
     }
   }

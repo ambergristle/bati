@@ -24,19 +24,19 @@
   ],
   "exports": {
     "./pages/todo/+config": {
-      "types": "./dist/types/pages/todo/+config.d.ts"
+      "types": "./dist/types/pages/todo/+config.d.mts"
     },
     "./pages/todo/+data": {
-      "types": "./dist/types/pages/todo/+data.d.ts"
+      "types": "./dist/types/pages/todo/+data.d.mts"
     }
   },
   "typesVersions": {
     "*": {
       "pages/todo/+config": [
-        "./dist/types/pages/todo/+config.d.ts"
+        "./dist/types/pages/todo/+config.d.mts"
       ],
       "pages/todo/+data": [
-        "./dist/types/pages/todo/+data.d.ts"
+        "./dist/types/pages/todo/+data.d.mts"
       ]
     }
   }

@@ -25,13 +25,13 @@
   ],
   "exports": {
     "./server/authjs-handler": {
-      "types": "./dist/types/server/authjs-handler.d.ts"
+      "types": "./dist/types/server/authjs-handler.d.mts"
     }
   },
   "typesVersions": {
     "*": {
       "server/authjs-handler": [
-        "./dist/types/server/authjs-handler.d.ts"
+        "./dist/types/server/authjs-handler.d.mts"
       ]
     }
   }

@@ -33,13 +33,13 @@
   ],
   "exports": {
     "./server/entry": {
-      "types": "./dist/types/server/entry.d.ts"
+      "types": "./dist/types/server/entry.d.mts"
     }
   },
   "typesVersions": {
     "*": {
       "server/entry": [
-        "./dist/types/server/entry.d.ts"
+        "./dist/types/server/entry.d.mts"
       ]
     }
   }
