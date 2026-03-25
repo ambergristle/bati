@@ -67,6 +67,7 @@ export default defineConfig({
   test: {
     include: ${testFiles ? JSON.stringify(testFiles.split(",")) : '["*.spec.ts"]'},
     testTimeout: 100000,
+    forceExit: true,
   },
 } as ViteUserConfig);
 `,
