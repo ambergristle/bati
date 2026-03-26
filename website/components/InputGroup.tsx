@@ -28,7 +28,7 @@ export default function InputGroup() {
   const [tooltipText, setTooltipText] = createSignal("Copy to Clipboard");
 
   function getFlags() {
-    return selectedFeaturesFlags().map((flag) => `--${flag}`);
+    return selectedFeaturesFlags().map(({ flag }) => `--${flag}`);
   }
 
   const npm = createMemo(() => ["npm", "create", "vike@latest", "---", ...getFlags()]);
