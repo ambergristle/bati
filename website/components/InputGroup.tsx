@@ -42,9 +42,14 @@ export default function InputGroup() {
   };
 
   const handleCopy = (packageManager: string) => {
-    track("copy", {
-      flags: selectedFeaturesFlags(),
+    const flags = selectedFeaturesFlags().reduce((agg: Record<string, string>, { flag, category }) => {
+      agg[category] = flag;
+      return agg;
+    }, {});
+
+    track("copy_scaffold", {
       package_manager: packageManager,
+      ...flags,
     });
     setTooltipText("Copied to Clipboard!");
   };
