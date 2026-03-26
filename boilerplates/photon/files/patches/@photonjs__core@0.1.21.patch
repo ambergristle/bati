@@ -1,0 +1,43 @@
+diff --git a/dist/plugin.js b/dist/plugin.js
+index e65ff1621a19218bd116211d079578b07b141150..64232963a21e62c7b347c02cd4e50f98e3e22da9 100644
+--- a/dist/plugin.js
++++ b/dist/plugin.js
+@@ -405,7 +405,7 @@ function installPhotonResolver(name, options) {
+ 	let resolvedName;
+ 	function photonVirtualModuleResolver(id, importer, opts) {
+ 		return async function resolvePhotonVirtualModule() {
+-			let resolved = await this.resolve(id, importer, opts);
++			let resolved = await this.resolve(id, importer, { ...opts, custom: { ...opts?.custom, photonVirtualImporterSkip: true } });
+ 			if (resolved) return resolved;
+ 			resolvedName ??= await resolveFirst(this, [{
+ 				source: name,
+@@ -483,6 +483,7 @@ function installPhotonResolver(name, options) {
+ 		{
+ 			name: `photon:resolve-virtual-importer:${name}`,
+ 			async resolveId(id, importer, opts) {
++				if (opts?.custom?.photonVirtualImporterSkip) return null;
+ 				return ifPhotonModule(["fallback-entry", "get-middlewares"], importer, photonVirtualModuleResolver(id, importer, opts).bind(this));
+ 			},
+ 			sharedDuringBuild: true
+@@ -1772,10 +1773,6 @@ function photonEntry() {
+ 						});
+ 						assertUsage(resolved, `Cannot resolve ${actualId} to a server entry`);
+ 						entry.resolvedId = resolved.id;
+-						if (this.environment.config.command === "build") await this.load({
+-							...resolved,
+-							resolveDependencies: true
+-						});
+ 						return {
+ 							...resolved,
+ 							meta: { photon: entry },
+@@ -1820,10 +1817,6 @@ function photonEntry() {
+ 						}
+ 						assertUsage(entry, `Cannot find a handler for ${resolved.id}`);
+ 						entry.resolvedId = resolved.id;
+-						if (this.environment.config.command === "build") await this.load({
+-							...resolved,
+-							resolveDependencies: true
+-						});
+ 						return {
+ 							...resolved,
+ 							meta: { photon: entry },

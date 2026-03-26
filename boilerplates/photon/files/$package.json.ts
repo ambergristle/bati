@@ -18,5 +18,10 @@ export default async function getPackageJson(props: TransformerProps): Promise<u
       value: "vike build && node ./dist/server/index.mjs",
       precedence: 20,
     })
-    .addDependencies(["vike-photon"]);
+    .addDependencies(["vike-photon"])
+    // @photonjs/core@0.1.21 has two bugs with Vite 8 / Rolldown:
+    // 1. this.load({ resolveDependencies: true }) in resolveId hooks causes deadlocks
+    // 2. Multiple photon:resolve-virtual-importer plugins mutually recurse infinitely
+    // Remove this patch once @photonjs/core ships a fix upstream.
+    .setPnpmPatchedDependency("@photonjs/core@0.1.21", "patches/@photonjs__core@0.1.21.patch");
 }

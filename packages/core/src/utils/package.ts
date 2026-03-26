@@ -126,6 +126,19 @@ export class PackageJsonTransformer<U extends PackageJsonDeps> implements String
     return this;
   }
 
+  /**
+   * Add a pnpm patchedDependency entry. Only applies when using pnpm.
+   * @param pkg - The package specifier (e.g. "@photonjs/core@0.1.21")
+   * @param patchPath - Relative path to the patch file (e.g. "patches/@photonjs__core@0.1.21.patch")
+   */
+  setPnpmPatchedDependency(pkg: string, patchPath: string): this {
+    const json = this.packageJson as Record<string, unknown>;
+    json.pnpm ??= {};
+    (json.pnpm as Record<string, unknown>).patchedDependencies ??= {};
+    ((json.pnpm as Record<string, unknown>).patchedDependencies as Record<string, string>)[pkg] = patchPath;
+    return this;
+  }
+
   addDependencies(newDeps: AllDependencies<U>[], condition?: boolean): this;
   addDependencies(newDeps: AllDependencies<U>[], onlyUsedBy?: string[], condition?: boolean): this;
   addDependencies(newDeps: AllDependencies<U>[], onlyUsedBy?: string[] | boolean, condition?: boolean) {

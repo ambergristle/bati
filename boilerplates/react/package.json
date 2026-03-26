@@ -107,6 +107,9 @@
       "pages/+onPageTransitionStart": [
         "./dist/types/pages/+onPageTransitionStart.d.mts"
       ],
+      "pages/_error/+Page": [
+        "./dist/types/pages/_error/+Page.d.mts"
+      ],
       "pages/index/+Page": [
         "./dist/types/pages/index/+Page.d.mts"
       ],
@@ -121,9 +124,6 @@
       ],
       "pages/todo/TodoList": [
         "./dist/types/pages/todo/TodoList.d.mts"
-      ],
-      "pages/_error/+Page": [
-        "./dist/types/pages/_error/+Page.d.mts"
       ],
       "pages/star-wars/@id/+Page": [
         "./dist/types/pages/star-wars/@id/+Page.d.mts"
