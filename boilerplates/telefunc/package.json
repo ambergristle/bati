@@ -13,24 +13,22 @@
   "license": "MIT",
   "devDependencies": {
     "@batijs/compile": "workspace:*",
+    "@batijs/core": "workspace:*",
     "@types/node": "^20.19.37",
     "@universal-middleware/core": "^0.4.17",
     "telefunc": "^0.2.19",
     "vike": "^0.4.255",
     "vite": "^8.0.2"
   },
-  "dependencies": {
-    "@batijs/core": "workspace:*"
-  },
   "files": [
     "dist/"
   ],
   "exports": {
-    "./server/telefunc-handler": {
-      "types": "./dist/types/server/telefunc-handler.d.mts"
-    },
     "./pages/todo/TodoList.telefunc": {
       "types": "./dist/types/pages/todo/TodoList.telefunc.d.mts"
+    },
+    "./server/telefunc-handler": {
+      "types": "./dist/types/server/telefunc-handler.d.mts"
     }
   },
   "typesVersions": {
@@ -42,5 +40,10 @@
         "./dist/types/pages/todo/TodoList.telefunc.d.mts"
       ]
     }
+  },
+  "nx": {
+    "tags": [
+      "type:boilerplate"
+    ]
   }
 }

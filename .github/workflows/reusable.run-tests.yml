@@ -43,9 +43,6 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
 
-#      - name: Cache for Turbo
-#        uses: rharkor/caching-for-turbo@v1.8
-
       - uses: oven-sh/setup-bun@v2
         name: Install bun
         with:
@@ -83,76 +80,75 @@ jobs:
 
       - name: Run Bati CLI
         shell: bash
-        run: bun ./bati-cli/index.js --knip ${{ inputs.flags }} ${{ inputs.destination }}
+        # Run the CLI with the destination outside the checkout to prevent tools
+        # like Storybook from walking up and detecting nx.json in the repo root.
+        # Use $GITHUB_WORKSPACE/$RUNNER_TEMP env vars (not ${{ }} expressions) so bash
+        # does not interpret backslashes in Windows paths as escape sequences.
+        run: bun "$GITHUB_WORKSPACE/bati-cli/index.js" --knip ${{ inputs.flags }} "$RUNNER_TEMP/${{ inputs.destination }}"
 
       - name: Link tests-utils
         shell: bash
-        run: cp -s ../bati-tests-utils/* .
-        working-directory: ${{ inputs.destination }}
+        run: cp -s "$GITHUB_WORKSPACE/bati-tests-utils/"* .
+        working-directory: ${{ runner.temp }}/${{ inputs.destination }}
 
       - name: Link tests files
         shell: bash
-        run: cp -s ../bati-tests-files/* .
-        working-directory: ${{ inputs.destination }}
+        run: cp -s "$GITHUB_WORKSPACE/bati-tests-files/"* .
+        working-directory: ${{ runner.temp }}/${{ inputs.destination }}
 
       - name: Prepare Bati tests
         shell: bash
         run:
-          bun ../bati-tests/prepare.js --test-files='${{ inputs.test-files }}' ${{
+          bun "$GITHUB_WORKSPACE/bati-tests/prepare.js" --test-files='${{ inputs.test-files }}' ${{
           inputs.flags }}
-        working-directory: ${{ inputs.destination }}
+        working-directory: ${{ runner.temp }}/${{ inputs.destination }}
 
       - name: Install dependencies
         shell: bash
         run: bun install
-        working-directory: ${{ inputs.destination }}
+        working-directory: ${{ runner.temp }}/${{ inputs.destination }}
+
+      - name: Generate types
+        if: contains(inputs.flags, '--cloudflare')
+        shell: bash
+        run: bun run generate-types
+        working-directory: ${{ runner.temp }}/${{ inputs.destination }}
 
       - name: Run build
         shell: bash
-        run:
-          bun turbo run build --no-update-notifier --framework-inference false
-          --env-mode loose
-        working-directory: ${{ inputs.destination }}
+        run: bun run build
+        working-directory: ${{ runner.temp }}/${{ inputs.destination }}
 
       - name: Run tests
         shell: bash
         # Bun hangs on Windows
-        run:
-          ${{ runner.os == 'Windows' && 'npm run test' || 'bun turbo run test --only
-          --no-update-notifier --framework-inference false --env-mode loose' }}
-        working-directory: ${{ inputs.destination }}
+        run: ${{ runner.os == 'Windows' && 'npm run test' || 'bun run test' }}
+        working-directory: ${{ runner.temp }}/${{ inputs.destination }}
 
       - name: Run lint:eslint
+        if: contains(inputs.flags, '--eslint')
         shell: bash
-        run:
-          bun turbo run lint:eslint --only --no-update-notifier --framework-inference
-          false --env-mode loose
-        working-directory: ${{ inputs.destination }}
+        run: bun run lint:eslint
+        working-directory: ${{ runner.temp }}/${{ inputs.destination }}
 
       - name: Run lint:biome
+        if: contains(inputs.flags, '--biome')
         shell: bash
-        run:
-          bun turbo run lint:biome --only --no-update-notifier --framework-inference
-          false --env-mode loose
-        working-directory: ${{ inputs.destination }}
+        run: bun run lint:biome
+        working-directory: ${{ runner.temp }}/${{ inputs.destination }}
 
       - name: Run lint:oxlint
+        if: contains(inputs.flags, '--oxlint')
         shell: bash
-        run:
-          bun turbo run lint:oxlint --only --no-update-notifier --framework-inference
-          false --env-mode loose
-        working-directory: ${{ inputs.destination }}
+        run: bun run lint:oxlint
+        working-directory: ${{ runner.temp }}/${{ inputs.destination }}
 
       - name: Run typecheck
         shell: bash
-        run:
-          bun turbo run typecheck --only --no-update-notifier --framework-inference
-          false --env-mode loose
-        working-directory: ${{ inputs.destination }}
+        run: bun run typecheck
+        working-directory: ${{ runner.temp }}/${{ inputs.destination }}
 
       - name: Run knip
         shell: bash
-        run:
-          bun turbo run knip --only --no-update-notifier --framework-inference false
-          --env-mode loose
-        working-directory: ${{ inputs.destination }}
+        run: bun run knip
+        working-directory: ${{ runner.temp }}/${{ inputs.destination }}

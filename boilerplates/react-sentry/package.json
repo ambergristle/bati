@@ -13,6 +13,7 @@
   "license": "MIT",
   "devDependencies": {
     "@batijs/compile": "workspace:*",
+    "@batijs/core": "workspace:*",
     "@sentry/react": "^10.45.0",
     "@types/node": "^20.19.37",
     "@types/react": "^19.2.14",
@@ -21,18 +22,15 @@
     "react-dom": "^19.2.4",
     "vite": "^8.0.2"
   },
-  "dependencies": {
-    "@batijs/core": "workspace:*"
-  },
   "files": [
     "dist/"
   ],
   "exports": {
-    "./sentry.browser.config": {
-      "types": "./dist/types/sentry.browser.config.d.mts"
-    },
     "./pages/sentry/+Page": {
       "types": "./dist/types/pages/sentry/+Page.d.mts"
+    },
+    "./sentry.browser.config": {
+      "types": "./dist/types/sentry.browser.config.d.mts"
     }
   },
   "typesVersions": {
@@ -44,5 +42,10 @@
         "./dist/types/pages/sentry/+Page.d.mts"
       ]
     }
+  },
+  "nx": {
+    "tags": [
+      "type:boilerplate"
+    ]
   }
 }

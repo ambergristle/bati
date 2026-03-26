@@ -106,8 +106,9 @@ dist
 # IDEs
 .idea/
 
-# Turborepo
-.turbo
+# Nx
+.nx/cache
+.nx/workspace-data
 
 # Generated GitHub Worflow action
 .github/actions/bati-gen

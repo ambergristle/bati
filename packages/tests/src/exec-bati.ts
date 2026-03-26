@@ -8,7 +8,7 @@ const __dirname = dirname(__filename);
 
 export async function execLocalBati(context: GlobalContext, flags: string[], monorepo = true) {
   const digest = flags.join("--") || "empty";
-  // --skip-git ensures proper turborepo cache computation
+  // --skip-git prevents git init in generated projects
   // --knip generates knip.json for E2E tests
   const mappedFlags = ["skip-git", "knip", ...flags].map((f) => `--${f}`);
 

@@ -41,12 +41,12 @@ jobs:
         run: mkdir -p ${{ runner.temp }}/bati-cache
 
       - uses: actions/cache/restore@v5
-        name: Setup Turborepo cache
+        name: Setup Nx cache
         with:
-          path: .turbo
-          key: ${{ runner.os }}-${{ matrix.node }}-turbo-${{ github.sha }}
+          path: .nx/cache
+          key: ${{ runner.os }}-${{ matrix.node }}-nx-${{ github.sha }}
           restore-keys: |
-            ${{ runner.os }}-${{ matrix.node }}-turbo-
+            ${{ runner.os }}-${{ matrix.node }}-nx-
 
       - name: Install dependencies
         run: pnpm install

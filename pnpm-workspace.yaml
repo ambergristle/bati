@@ -27,6 +27,7 @@ onlyBuiltDependencies:
   - better-sqlite3
   - es5-ext
   - esbuild
+  - nx
   - oxc-resolver
   - prisma
   - protobufjs

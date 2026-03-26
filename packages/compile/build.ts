@@ -103,12 +103,13 @@ export async function build() {
         },
         deps: {
           skipNodeModulesBundle: true,
+          neverBundle: [/@batijs\/.*/],
         },
         onSuccess: async () => {
           const distDir = path.join(process.cwd(), "dist", "types");
-          const emittedFiles = (await globby(["./dist/types/**/*.d.mts"])).map((f) =>
-            path.relative(distDir, path.resolve(f)).replace(/\\/g, "/"),
-          );
+          const emittedFiles = (await globby(["./dist/types/**/*.d.mts"]))
+            .map((f) => path.relative(distDir, path.resolve(f)).replace(/\\/g, "/"))
+            .sort();
 
           const packageJsonTypes = emittedFiles.reduce(
             (acc, cur) => {
@@ -127,7 +128,11 @@ export async function build() {
           packageJson.exports = sortObject(packageJsonTypes.exports);
           packageJson.typesVersions = sortObject(packageJsonTypes.typesVersions);
 
-          await writeFile("package.json", JSON.stringify(packageJson, undefined, 2).replace(/\r\n/g, "\n"), "utf-8");
+          await writeFile(
+            "package.json",
+            `${JSON.stringify(packageJson, undefined, 2).replace(/\r\n/g, "\n")}\n`,
+            "utf-8",
+          );
 
           console.log("Types generated into", distDir);
           console.log("Build step complete");
@@ -140,7 +145,7 @@ export async function build() {
       delete packageJson.exports;
       delete packageJson.typesVersions;
 
-      await writeFile("package.json", JSON.stringify(packageJson, undefined, 2).replace(/\r\n/g, "\n"), "utf-8");
+      await writeFile("package.json", `${JSON.stringify(packageJson, undefined, 2).replace(/\r\n/g, "\n")}\n`, "utf-8");
     }
 
     buildPromises.push(removeTypes());
@@ -150,5 +155,12 @@ export async function build() {
 }
 
 function sortObject<T extends object>(obj: T): T {
-  return Object.fromEntries(Object.entries(obj).sort(([a], [b]) => a.localeCompare(b))) as T;
+  return Object.fromEntries(
+    Object.entries(obj)
+      .sort(([a], [b]) => (a < b ? -1 : a > b ? 1 : 0))
+      .map(([key, value]) => [
+        key,
+        value !== null && typeof value === "object" && !Array.isArray(value) ? sortObject(value) : value,
+      ]),
+  ) as T;
 }

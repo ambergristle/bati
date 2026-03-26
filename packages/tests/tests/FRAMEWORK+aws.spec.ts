@@ -20,6 +20,7 @@ await describeBati(
         execSync(synthCommand, {
           encoding: "utf8",
           maxBuffer: 50 * 1024 * 1024,
+          timeout: 90 * 1000, // 90s — unblocks the event loop so hookTimeout can fire
           env: {
             BUN_LOCKFILE: "../../bun.lockb", // This is to make sure that the correct lockfile is used in a bun project
             PATH: process.env.PATH,

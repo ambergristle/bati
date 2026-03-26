@@ -13,6 +13,7 @@
   "license": "MIT",
   "devDependencies": {
     "@batijs/compile": "workspace:*",
+    "@batijs/core": "workspace:*",
     "@types/better-sqlite3": "^7.6.13",
     "@types/node": "^20.19.37",
     "better-sqlite3": "^12.8.0",
@@ -20,16 +21,10 @@
     "drizzle-kit": "^0.31.10",
     "drizzle-orm": "^0.45.1"
   },
-  "dependencies": {
-    "@batijs/core": "workspace:*"
-  },
   "files": [
     "dist/"
   ],
   "exports": {
-    "./drizzle.config": {
-      "types": "./dist/types/drizzle.config.d.mts"
-    },
     "./database/drizzle/db": {
       "types": "./dist/types/database/drizzle/db.d.mts"
     },
@@ -38,6 +33,9 @@
     },
     "./database/drizzle/schema/todos": {
       "types": "./dist/types/database/drizzle/schema/todos.d.mts"
+    },
+    "./drizzle.config": {
+      "types": "./dist/types/drizzle.config.d.mts"
     }
   },
   "typesVersions": {
@@ -55,5 +53,10 @@
         "./dist/types/database/drizzle/schema/todos.d.mts"
       ]
     }
+  },
+  "nx": {
+    "tags": [
+      "type:boilerplate"
+    ]
   }
 }

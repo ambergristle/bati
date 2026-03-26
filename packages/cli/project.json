@@ -1,0 +1,4 @@
+{
+  "name": "@batijs/cli",
+  "implicitDependencies": ["tag:type:boilerplate"]
+}

@@ -13,6 +13,7 @@
   "license": "MIT",
   "devDependencies": {
     "@batijs/compile": "workspace:*",
+    "@batijs/core": "workspace:*",
     "@types/node": "^20.19.37",
     "@types/which": "^3.0.4",
     "aws-cdk": "^2.1112.0",
@@ -27,24 +28,21 @@
     "vitest": "^4.1.0",
     "which": "^6.0.1"
   },
-  "dependencies": {
-    "@batijs/core": "workspace:*"
-  },
   "files": [
     "dist/"
   ],
   "exports": {
-    "./vitest.config": {
-      "types": "./dist/types/vitest.config.d.mts"
-    },
-    "./tests/aws_handler.spec": {
-      "types": "./dist/types/tests/aws_handler.spec.d.mts"
-    },
     "./cdk/bin/infrastructure": {
       "types": "./dist/types/cdk/bin/infrastructure.d.mts"
     },
     "./cdk/lib/vike-stack": {
       "types": "./dist/types/cdk/lib/vike-stack.d.mts"
+    },
+    "./tests/aws_handler.spec": {
+      "types": "./dist/types/tests/aws_handler.spec.d.mts"
+    },
+    "./vitest.config": {
+      "types": "./dist/types/vitest.config.d.mts"
     }
   },
   "typesVersions": {
@@ -62,5 +60,10 @@
         "./dist/types/cdk/lib/vike-stack.d.mts"
       ]
     }
+  },
+  "nx": {
+    "tags": [
+      "type:boilerplate"
+    ]
   }
 }

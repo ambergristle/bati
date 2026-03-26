@@ -9,7 +9,6 @@ export async function updatePackageJson(
   flags: string[],
   packedTestsUtils?: string,
   packageManager?: string,
-  addTurbo?: boolean,
 ) {
   // add vitest and lint script
   const pkgjson = JSON.parse(await readFile(join(projectDir, "package.json"), "utf-8"));
@@ -30,6 +29,8 @@ export async function updatePackageJson(
   // Storybook create .ts files that imports .vue files, and tsc complains about that
   if (!flags.includes("storybook") || !flags.includes("vue")) {
     pkgjson.scripts.typecheck = "tsc --noEmit";
+  } else {
+    pkgjson.scripts.typecheck = "echo 'typecheck skipped for storybook+vue'";
   }
   pkgjson.devDependencies ??= {};
   pkgjson.devDependencies.vitest = packageJson.devDependencies.vitest;
@@ -41,9 +42,6 @@ export async function updatePackageJson(
   }
   if (packageManager) {
     pkgjson.packageManager = packageManager;
-  }
-  if (addTurbo) {
-    pkgjson.devDependencies.turbo = packageJson.devDependencies.turbo;
   }
   await writeFile(join(projectDir, "package.json"), JSON.stringify(pkgjson, undefined, 2), "utf-8");
 
@@ -69,51 +67,10 @@ export default defineConfig({
   test: {
     include: ${testFiles ? JSON.stringify(testFiles.split(",")) : '["*.spec.ts"]'},
     testTimeout: 100000,
+    forceExit: true,
   },
 } as ViteUserConfig);
 `,
-    "utf-8",
-  );
-}
-
-export async function createTurboConfig(context: GlobalContext) {
-  await writeFile(
-    join(context.tmpdir, "turbo.json"),
-    JSON.stringify({
-      $schema: "https://turbo.build/schema.json",
-      tasks: {
-        "generate-types": {
-          outputs: ["worker-configuration.d.ts"],
-        },
-        build: {
-          dependsOn: ["^build", "generate-types"],
-          outputs: ["dist/**"],
-        },
-        test: {
-          dependsOn: ["generate-types", "build"],
-          env: ["TEST_*"],
-        },
-        "lint:eslint": {
-          dependsOn: ["generate-types", "build"],
-        },
-        "lint:biome": {
-          dependsOn: ["generate-types", "build"],
-        },
-        "lint:oxlint": {
-          dependsOn: ["build"],
-        },
-        typecheck: {
-          dependsOn: ["generate-types", "build"],
-        },
-        knip: {
-          // adding "test" because of possible race conditions as knip can execute some files
-          dependsOn: ["build", "test"],
-        },
-      },
-      remoteCache: {
-        signature: false,
-      },
-    }),
     "utf-8",
   );
 }
@@ -143,4 +100,56 @@ export async function extractPnpmOnlyBuiltDependencies(projectDir: string, onlyB
   } catch {
     // noop
   }
+}
+
+export async function createNxConfig(context: GlobalContext) {
+  await writeFile(
+    join(context.tmpdir, "nx.json"),
+    `${JSON.stringify(
+      {
+        $schema: "https://nx.dev/reference/nx-json",
+        tui: {
+          autoExit: 0,
+        },
+        targetDefaults: {
+          "generate-types": {
+            cache: false,
+          },
+          build: {
+            dependsOn: ["generate-types"],
+            // build results are cached so that dependsOn chains (test → build,
+            // lint → build, etc.) reuse the cached output instead of rebuilding
+          },
+          test: {
+            dependsOn: ["build"],
+            cache: false,
+          },
+          "lint:eslint": {
+            dependsOn: ["build"],
+            cache: false,
+          },
+          "lint:biome": {
+            dependsOn: ["build"],
+            cache: false,
+          },
+          "lint:oxlint": {
+            dependsOn: ["build"],
+            cache: false,
+          },
+          typecheck: {
+            dependsOn: ["build"],
+            cache: false,
+          },
+          knip: {
+            dependsOn: ["build", "test"],
+            cache: false,
+          },
+        },
+      },
+      undefined,
+      2,
+    )}\n`,
+
+    "utf-8",
+  );
 }
